@@ -10,6 +10,28 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-primary-50: #f2fbf3;
+  --color-primary-100: #dff5e2;
+  --color-primary-200: #c3ebc9;
+  --color-primary-300: #94dc9f;
+  --color-primary-400: #59c86d;
+  --color-primary-500: #23b44b;
+  --color-primary-600: #188d3a;
+  --color-primary-700: #156f32;
+  --color-primary-800: #14592b;
+  --color-primary-900: #124a26;
+
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +44,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Inter, "Segoe UI", sans-serif;
 }
