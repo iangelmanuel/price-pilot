@@ -26,11 +26,13 @@ export function ConversionCard() {
     costByPound,
     loading,
     isTrmChanging,
+    porcentageIncrease,
     setTrm,
     setCompanyCommission,
     setDeliveryCost,
     setIsTrmChanging,
     setCostByPound,
+    setPorcentageIncrease,
 
     clearData
   } = useProduct()
@@ -38,11 +40,13 @@ export function ConversionCard() {
   const priceWithCompanyCommission = trm + companyCommission
   const priceSetByPound = costByPound * pounds
   const finalPrice =
-    businessPrice * priceWithCompanyCommission + deliveryCost + priceSetByPound
+    businessPrice * priceWithCompanyCommission * porcentageIncrease +
+    deliveryCost +
+    priceSetByPound
 
   return (
     <SectionCard tone="success">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between bg-white">
         <SectionCardHeader
           title="Conversión automática a COP"
           icon={
@@ -153,8 +157,20 @@ export function ConversionCard() {
               Precio final calculado
             </p>
 
-            <div className="mt-2 h-12 rounded-lg border border-primary-300 bg-primary-400 px-3 text-[14px] font-semibold leading-12 text-primary-900 shadow-[0_10px_24px_rgba(35,180,75,0.3)]">
+            <div className="mt-2 flex justify-between items-center rounded-lg border border-primary-300 bg-primary-400 px-3 text-[14px] font-semibold leading-12 text-primary-900 shadow-[0_10px_24px_rgba(35,180,75,0.3)]">
               {loading ? <span>Calculando...</span> : formatCop(finalPrice)}
+
+              <IconActionButton
+                disabled={!finalPrice}
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    Math.ceil(finalPrice).toString() || ""
+                  )
+                }
+                className="bg-transparent hover:bg-primary-500 hover:text-white text-primary-900 transition-all"
+              >
+                <ClipboardIcon className="h-4.5 w-4.5" />
+              </IconActionButton>
             </div>
 
             <div className="flex justify-between gap-5">
@@ -171,6 +187,21 @@ export function ConversionCard() {
                   className="h-4 w-4 rounded border-neutral-200 bg-neutral-100 text-neutral-600 focus:ring-primary-500"
                 />
                 <label htmlFor="changeDeliveryCost">¿Sumar 10000 envío?</label>
+              </div>
+
+              <div className="mt-2 flex items-center gap-1 px-2 text-[14px] text-neutral-700">
+                <input
+                  id="changePorcentageIncrease"
+                  type="checkbox"
+                  checked={porcentageIncrease > 1}
+                  onChange={() =>
+                    porcentageIncrease > 1
+                      ? setPorcentageIncrease(1)
+                      : setPorcentageIncrease(1.15)
+                  }
+                  className="h-4 w-4 rounded border-neutral-200 bg-neutral-100 text-neutral-600 focus:ring-primary-500"
+                />
+                <label htmlFor="changePorcentageIncrease">+15%</label>
               </div>
 
               <div className="mt-2 flex items-center justify-between gap-1 px-2 text-[14px] text-neutral-700">
@@ -263,11 +294,22 @@ export function ProductSourceCard() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <FieldLabel>Código de cupón (opcional)</FieldLabel>
-            <FieldInput
-              value={couponCode || ""}
-              onChange={(e) => setCouponCode(e.target.value)}
-              placeholder="SAVE20OFF"
-            />
+            <div className="flex items-center justify-center">
+              <FieldInput
+                value={couponCode || ""}
+                onChange={(e) => setCouponCode(e.target.value)}
+                placeholder="SAVE20OFF"
+              />
+
+              <button
+                type="button"
+                disabled={!couponCode}
+                onClick={() => navigator.clipboard.writeText(couponCode || "")}
+                className="ml-2 grid cursor-pointer place-items-center rounded-lg p-2 text-neutral-500 transition-all hover:bg-neutral-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <ClipboardIcon className="h-4.5 w-4.5" />
+              </button>
+            </div>
           </div>
           <div>
             <FieldLabel>Libras (opcional)</FieldLabel>

@@ -62,7 +62,7 @@ export function IconActionButton({
       onClick={onClick}
       className={[
         "grid h-11 w-11 place-items-center rounded-lg bg-neutral-100 text-neutral-500 transition-colors",
-        "hover:bg-neutral-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50",
+        "hover:bg-neutral-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
         className ?? ""
       ].join(" ")}
     >

@@ -37,10 +37,12 @@ type ProductContextType = {
   companyCommission: number
   deliveryCost: number
   costByPound: number
+  porcentageIncrease: number
   setTrm: (trm: number) => void
   setCompanyCommission: (commission: number) => void
   setDeliveryCost: (cost: number) => void
   setCostByPound: (cost: number) => void
+  setPorcentageIncrease: (value: number) => void
 
   // Settings
   loading: boolean
@@ -86,6 +88,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   const [companyCommission, setCompanyCommission] = useState(0)
   const [deliveryCost, setDeliveryCost] = useState(0)
   const [costByPound, setCostByPound] = useState(0)
+  const [porcentageIncrease, setPorcentageIncrease] = useState(1)
 
   // Settings
   const [loading, setLoading] = useState(false)
@@ -98,7 +101,8 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
       try {
         const response = await fetch(url)
         const data: TrmType = await response.json()
-        setTrm(data.data.mid)
+        const trm = Math.ceil(data.data.mid)
+        setTrm(trm)
       } catch (error) {
         console.error("Error fetching TRM:", error)
       } finally {
@@ -195,10 +199,12 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     companyCommission,
     deliveryCost,
     costByPound,
+    porcentageIncrease,
     setTrm,
     setCompanyCommission,
     setDeliveryCost,
     setCostByPound,
+    setPorcentageIncrease,
 
     loading,
     isTrmChanging,
