@@ -9,14 +9,16 @@ import { WhatsAppPreviewCard } from "./WhatsAppPreviewCard"
 
 export function CreateProduct() {
   return (
-    <section className="grid grid-cols-[1.4fr_0.98fr] gap-5 mt-7">
+    <section className="mt-7 grid grid-cols-1 gap-5 xl:grid-cols-[1.35fr_0.95fr]">
       <div className="space-y-4">
         <ConversionCard />
         <ProductSourceCard />
         <AIContentCard />
       </div>
 
-      <WhatsAppPreviewCard />
+      <div className="xl:sticky xl:top-24 xl:h-fit">
+        <WhatsAppPreviewCard />
+      </div>
     </section>
   )
 }

@@ -2,19 +2,40 @@
 
 import { useProduct } from "@/app/hook/useProduct"
 import {
-  ArrowRightIcon,
   ClipboardIcon,
   ConversionIcon,
   ExternalLinkIcon
 } from "../dashboard/icons"
 import { formatCop } from "@/app/utils/formatCurrency"
 import { SectionCard, SectionCardHeader } from "@/app/components/ui/card"
+import { Button } from "@/app/components/ui/button"
+import { InlineLoader } from "@/app/components/ui/loader"
 import {
+  DecimalFieldInput,
   FieldInput,
   FieldLabel,
-  IconActionButton,
-  SelectionPill
+  IconActionButton
 } from "@/app/components/ui/form"
+import { parseDecimalInput } from "@/app/utils/parseDecimalInput"
+import {
+  BreakdownTile,
+  ConfigCard,
+  SelectionPillGroup,
+  ToggleOptionRow
+} from "@/app/components/create-product/primitives"
+
+const COMMISSION_OPTIONS = [
+  { label: "+0", value: 0 },
+  { label: "+150", value: 150 },
+  { label: "+200", value: 200 },
+  { label: "+300", value: 300 }
+]
+
+const POUND_OPTIONS = [
+  { label: "Libra +0", value: 0 },
+  { label: "+18.000", value: 18000 },
+  { label: "+30.000", value: 30000 }
+]
 
 export function ConversionCard() {
   const {
@@ -46,188 +67,159 @@ export function ConversionCard() {
 
   return (
     <SectionCard tone="success">
-      <div className="flex items-center justify-between bg-white">
-        <SectionCardHeader
-          title="Conversión automática a COP"
-          icon={
-            <span className="grid h-4 w-4 place-items-center rounded-sm bg-primary-500 text-[10px] font-bold text-white">
-              <ConversionIcon className="h-3 w-3" />
-            </span>
-          }
-        />
-
-        <div>
-          <button
-            type="button"
+      <SectionCardHeader
+        title="Conversión automática a COP"
+        icon={
+          <span className="grid h-4 w-4 place-items-center rounded-sm bg-primary-500 text-[10px] font-bold text-white">
+            <ConversionIcon className="h-3 w-3" />
+          </span>
+        }
+        rightSlot={
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => clearData()}
-            className="mr-4 grid cursor-pointer place-items-center rounded-lg p-2 text-neutral-500 transition-all hover:bg-neutral-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+            className="active:scale-95"
           >
             Limpiar datos
-          </button>
-        </div>
-      </div>
+          </Button>
+        }
+      />
 
-      <div className="p-4">
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+      <div className="space-y-3 p-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary-200 bg-[linear-gradient(180deg,#eaf2ff_0%,#dbeafe_100%)] px-4 py-3 shadow-[0_8px_20px_rgba(37,99,235,0.16)]">
           <div>
-            <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-500">
-              Tasa de cambio
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-primary-700">
+              Precio final COP
             </p>
-
-            <div className="mt-2 h-12 rounded-lg border border-neutral-200 bg-white px-3 text-[14px] leading-12 text-neutral-700">
+            <p className="mt-1 text-[24px] font-extrabold leading-none tracking-[-0.02em] text-primary-900 sm:text-[30px]">
               {loading ? (
-                <span>Obteniendo TRM...</span>
+                <InlineLoader
+                  className="text-primary-800"
+                  textClassName="text-primary-800"
+                />
               ) : (
-                <div
-                  className={
-                    "flex items-center gap-2" +
-                    (isTrmChanging ? " opacity-100" : " opacity-70")
-                  }
-                >
-                  <div>
-                    <span className="font-bold">$ 1 USD =</span>
-                  </div>
-
-                  <div>
-                    <input
-                      type="text"
-                      disabled={!isTrmChanging}
-                      value={trm ? formatCop(trm) : "Cargando..."}
-                      onChange={(e) => setTrm(parseFloat(e.target.value) || 0)}
-                      placeholder="0.00"
-                      className="w-auto text-neutral-700 focus:outline-none disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-700/70"
-                    />
-                  </div>
-
-                  <div className={isTrmChanging ? "opacity-100" : "opacity-50"}>
-                    <p>{formatCop(priceWithCompanyCommission)}</p>
-                  </div>
-                </div>
+                formatCop(finalPrice)
               )}
-            </div>
-
-            <div className="flex justify-between gap-5">
-              <div className="mt-2 flex items-center gap-1 px-2 text-[14px] text-neutral-700">
-                <input
-                  id="changeTRM"
-                  type="checkbox"
-                  checked={isTrmChanging}
-                  onChange={(e) => setIsTrmChanging(e.target.checked)}
-                  className="h-4 w-4 rounded border-neutral-200 bg-neutral-100 text-neutral-600 focus:ring-primary-500"
-                />
-                <label htmlFor="changeTRM">Actualizar manualmente</label>
-              </div>
-
-              <div className="mt-2 flex items-center justify-between gap-1 px-2 text-[14px] text-neutral-700">
-                <SelectionPill
-                  active={companyCommission === 0}
-                  onClick={() => setCompanyCommission(0)}
-                >
-                  0
-                </SelectionPill>
-
-                <SelectionPill
-                  active={companyCommission === 150}
-                  onClick={() => setCompanyCommission(150)}
-                >
-                  +150
-                </SelectionPill>
-
-                <SelectionPill
-                  active={companyCommission === 200}
-                  onClick={() => setCompanyCommission(200)}
-                >
-                  +200
-                </SelectionPill>
-
-                <SelectionPill
-                  active={companyCommission === 300}
-                  onClick={() => setCompanyCommission(300)}
-                >
-                  +300
-                </SelectionPill>
-              </div>
-            </div>
-          </div>
-
-          <ArrowRightIcon className="mb-3 h-5 w-5 text-neutral-500" />
-
-          <div>
-            <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-500">
-              Precio final calculado
             </p>
-
-            <div className="mt-2 flex justify-between items-center rounded-lg border border-primary-300 bg-primary-400 px-3 text-[14px] font-semibold leading-12 text-primary-900 shadow-[0_10px_24px_rgba(35,180,75,0.3)]">
-              {loading ? <span>Calculando...</span> : formatCop(finalPrice)}
-
-              <IconActionButton
-                disabled={!finalPrice}
-                onClick={() =>
-                  navigator.clipboard.writeText(
-                    Math.ceil(finalPrice).toString() || ""
-                  )
-                }
-                className="bg-transparent hover:bg-primary-500 hover:text-white text-primary-900 transition-all"
-              >
-                <ClipboardIcon className="h-4.5 w-4.5" />
-              </IconActionButton>
-            </div>
-
-            <div className="flex justify-between gap-5">
-              <div className="mt-2 flex items-center gap-1 px-2 text-[14px] text-neutral-700">
-                <input
-                  id="changeDeliveryCost"
-                  type="checkbox"
-                  checked={deliveryCost > 0}
-                  onChange={() =>
-                    deliveryCost > 0
-                      ? setDeliveryCost(0)
-                      : setDeliveryCost(10000)
-                  }
-                  className="h-4 w-4 rounded border-neutral-200 bg-neutral-100 text-neutral-600 focus:ring-primary-500"
-                />
-                <label htmlFor="changeDeliveryCost">¿Sumar 10000 envío?</label>
-              </div>
-
-              <div className="mt-2 flex items-center gap-1 px-2 text-[14px] text-neutral-700">
-                <input
-                  id="changePorcentageIncrease"
-                  type="checkbox"
-                  checked={porcentageIncrease > 1}
-                  onChange={() =>
-                    porcentageIncrease > 1
-                      ? setPorcentageIncrease(1)
-                      : setPorcentageIncrease(1.15)
-                  }
-                  className="h-4 w-4 rounded border-neutral-200 bg-neutral-100 text-neutral-600 focus:ring-primary-500"
-                />
-                <label htmlFor="changePorcentageIncrease">+15%</label>
-              </div>
-
-              <div className="mt-2 flex items-center justify-between gap-1 px-2 text-[14px] text-neutral-700">
-                <SelectionPill
-                  active={costByPound === 0}
-                  onClick={() => setCostByPound(0)}
-                >
-                  0
-                </SelectionPill>
-
-                <SelectionPill
-                  active={costByPound === 18000}
-                  onClick={() => setCostByPound(18000)}
-                >
-                  +18000
-                </SelectionPill>
-
-                <SelectionPill
-                  active={costByPound === 30000}
-                  onClick={() => setCostByPound(30000)}
-                >
-                  +30000
-                </SelectionPill>
-              </div>
-            </div>
           </div>
+
+          <IconActionButton
+            disabled={!finalPrice}
+            onClick={() =>
+              navigator.clipboard.writeText(
+                Math.ceil(finalPrice).toString() || ""
+              )
+            }
+            className="h-10 w-10 bg-white/70 text-primary-900 transition-all hover:bg-primary-500 hover:text-white"
+          >
+            <ClipboardIcon className="h-4.5 w-4.5" />
+          </IconActionButton>
+        </div>
+
+        <div className="space-y-2 rounded-xl border border-neutral-200 bg-neutral-50 p-3">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-neutral-600">
+            Desglose
+          </p>
+          <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+            <BreakdownTile
+              label="Base"
+              value={formatCop(businessPrice * priceWithCompanyCommission)}
+            />
+            <BreakdownTile
+              label="Envío"
+              value={formatCop(deliveryCost)}
+            />
+            <BreakdownTile
+              label="Libra"
+              value={formatCop(priceSetByPound)}
+            />
+            <BreakdownTile
+              label="Total"
+              value={
+                loading ? (
+                  <InlineLoader
+                    className="text-primary-800"
+                    textClassName="text-primary-800"
+                  />
+                ) : (
+                  formatCop(finalPrice)
+                )
+              }
+              tone="highlight"
+            />
+          </div>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-2">
+          <ConfigCard title="Tasa y comisión">
+            <div className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-[14px] sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-semibold text-neutral-700">1 USD =</span>
+                {loading ? (
+                  <InlineLoader />
+                ) : (
+                  <input
+                    type="number"
+                    step="any"
+                    inputMode="decimal"
+                    disabled={!isTrmChanging}
+                    value={trm || ""}
+                    onChange={(e) => setTrm(parseDecimalInput(e.target.value))}
+                    placeholder="0.00"
+                    className="w-full max-w-30 rounded-md border border-transparent bg-transparent px-2 py-1 text-neutral-800 outline-none transition-colors focus:border-primary-200 focus:bg-white disabled:pointer-events-none disabled:text-neutral-600/80"
+                  />
+                )}
+              </div>
+
+              <ToggleOptionRow
+                id="changeTRM"
+                label="Manual"
+                checked={isTrmChanging}
+                onChange={() => setIsTrmChanging(!isTrmChanging)}
+                variant="inline"
+              />
+            </div>
+
+            <SelectionPillGroup
+              options={COMMISSION_OPTIONS}
+              activeValue={companyCommission}
+              onSelect={setCompanyCommission}
+            />
+
+            <p className="rounded-lg bg-primary-50 px-3 py-2 text-[13px] text-primary-800">
+              Tasa efectiva:{" "}
+              <strong>{formatCop(priceWithCompanyCommission)}</strong>
+            </p>
+          </ConfigCard>
+
+          <ConfigCard title="Ajustes rápidos">
+            <ToggleOptionRow
+              id="changeDeliveryCost"
+              label="Envío +10.000"
+              checked={deliveryCost > 0}
+              onChange={() =>
+                deliveryCost > 0 ? setDeliveryCost(0) : setDeliveryCost(10000)
+              }
+            />
+
+            <ToggleOptionRow
+              id="changePorcentageIncrease"
+              label="Incremento +15%"
+              checked={porcentageIncrease > 1}
+              onChange={() =>
+                porcentageIncrease > 1
+                  ? setPorcentageIncrease(1)
+                  : setPorcentageIncrease(1.15)
+              }
+            />
+
+            <SelectionPillGroup
+              options={POUND_OPTIONS}
+              activeValue={costByPound}
+              onSelect={setCostByPound}
+            />
+          </ConfigCard>
         </div>
       </div>
     </SectionCard>
@@ -259,7 +251,7 @@ export function ProductSourceCard() {
               onChange={(e) => setProductLink(e.target.value)}
               type="text"
               placeholder="https://amazon.com/dp/..."
-              className="h-11 flex-1 rounded-lg border border-neutral-200 bg-neutral-100 px-3 text-[14px] text-neutral-600 placeholder:text-neutral-400"
+              className="h-11 flex-1 rounded-lg border border-neutral-200 bg-neutral-50 px-3 text-[14px] text-neutral-700 placeholder:text-neutral-400 outline-none transition-colors focus:border-primary-300 focus:ring-2 focus:ring-primary-200"
             />
 
             <div className="flex items-center gap-2 text-neutral-500">
@@ -284,38 +276,39 @@ export function ProductSourceCard() {
 
         <div>
           <FieldLabel>Precio del producto (USD)</FieldLabel>
-          <FieldInput
-            value={businessPrice.toString()}
-            onChange={(e) => setBusinessPrice(parseFloat(e.target.value) || 0)}
+          <DecimalFieldInput
+            value={businessPrice ? businessPrice.toString() : ""}
+            onChange={(e) =>
+              setBusinessPrice(parseDecimalInput(e.target.value))
+            }
             placeholder="0.00"
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <FieldLabel>Código de cupón (opcional)</FieldLabel>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center">
               <FieldInput
                 value={couponCode || ""}
                 onChange={(e) => setCouponCode(e.target.value)}
                 placeholder="SAVE20OFF"
               />
 
-              <button
-                type="button"
+              <IconActionButton
                 disabled={!couponCode}
                 onClick={() => navigator.clipboard.writeText(couponCode || "")}
-                className="ml-2 grid cursor-pointer place-items-center rounded-lg p-2 text-neutral-500 transition-all hover:bg-neutral-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+                className="ml-2"
               >
                 <ClipboardIcon className="h-4.5 w-4.5" />
-              </button>
+              </IconActionButton>
             </div>
           </div>
           <div>
             <FieldLabel>Libras (opcional)</FieldLabel>
-            <FieldInput
-              value={pounds.toString()}
-              onChange={(e) => setPounds(Number(e.target.value) || 0)}
+            <DecimalFieldInput
+              value={pounds ? pounds.toString() : ""}
+              onChange={(e) => setPounds(parseDecimalInput(e.target.value))}
               placeholder="1lb"
             />
           </div>

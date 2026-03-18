@@ -1,4 +1,5 @@
 import type { ChangeEvent, ReactNode } from "react"
+import { IconButton } from "@/app/components/ui/button"
 
 type FieldLabelProps = {
   children: ReactNode
@@ -8,6 +9,14 @@ type FieldInputProps = {
   placeholder: string
   value: string
   type?: string
+  step?: number | "any"
+  inputMode?: "text" | "decimal" | "numeric"
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+type DecimalFieldInputProps = {
+  placeholder: string
+  value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -36,15 +45,36 @@ export function FieldInput({
   placeholder,
   value,
   type = "text",
+  step,
+  inputMode,
   onChange
 }: FieldInputProps) {
   return (
     <input
       type={type}
+      step={step}
+      inputMode={inputMode}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="mt-2 h-11 w-full rounded-lg border border-neutral-200 bg-neutral-100 px-3 text-[14px] text-neutral-600 placeholder:text-neutral-400"
+      className="mt-2 h-11 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 text-[14px] text-neutral-700 placeholder:text-neutral-400 outline-none transition-colors focus:border-primary-300 focus:ring-2 focus:ring-primary-200"
+    />
+  )
+}
+
+export function DecimalFieldInput({
+  placeholder,
+  value,
+  onChange
+}: DecimalFieldInputProps) {
+  return (
+    <FieldInput
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      type="number"
+      step="any"
+      inputMode="decimal"
     />
   )
 }
@@ -56,18 +86,17 @@ export function IconActionButton({
   className
 }: IconActionButtonProps) {
   return (
-    <button
-      type="button"
+    <IconButton
       disabled={disabled}
       onClick={onClick}
       className={[
-        "grid h-11 w-11 place-items-center rounded-lg bg-neutral-100 text-neutral-500 transition-colors",
-        "hover:bg-neutral-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
+        "h-11 w-11 border border-transparent bg-neutral-100 text-neutral-500",
+        "hover:border-primary-100 hover:bg-primary-50 hover:text-primary-700 active:scale-95",
         className ?? ""
       ].join(" ")}
     >
       {children}
-    </button>
+    </IconButton>
   )
 }
 
@@ -81,10 +110,10 @@ export function SelectionPill({
       type="button"
       onClick={onClick}
       className={[
-        "rounded-full px-2 py-0.5 text-[13px] transition-colors",
+        "rounded-full px-2.5 py-1 text-[13px] transition-colors",
         active
           ? "bg-primary-500 text-white"
-          : "bg-neutral-300 text-neutral-700 hover:bg-neutral-400"
+          : "bg-neutral-200 text-neutral-700 hover:bg-primary-100 hover:text-primary-800"
       ].join(" ")}
     >
       {children}

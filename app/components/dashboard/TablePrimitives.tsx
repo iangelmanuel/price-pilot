@@ -1,5 +1,6 @@
 import Link from "next/link"
 import type { ReactNode } from "react"
+import { IconButton } from "@/app/components/ui/button"
 
 type ActionIconButtonProps = {
   label: string
@@ -23,13 +24,13 @@ type ProductStatusBadgeProps = {
 
 export function ActionIconButton({ label, children }: ActionIconButtonProps) {
   return (
-    <button
-      type="button"
+    <IconButton
+      size="sm"
       aria-label={label}
-      className="grid h-7 w-7 place-items-center rounded-lg transition-colors hover:bg-neutral-100"
+      className="text-neutral-500"
     >
       {children}
-    </button>
+    </IconButton>
   )
 }
 
@@ -46,9 +47,11 @@ export function PaginationLink({
       className={[
         "grid h-8 w-8 place-items-center rounded-lg border text-[13px] font-medium",
         active
-          ? "border-primary-500 bg-primary-400 font-semibold text-primary-900"
+          ? "border-primary-500 bg-primary-100 font-semibold text-primary-900"
           : "border-neutral-200 text-neutral-700",
-        disabled ? "pointer-events-none opacity-50" : ""
+        disabled
+          ? "pointer-events-none opacity-50"
+          : "hover:border-primary-300 hover:bg-primary-50"
       ].join(" ")}
     >
       {children}
@@ -62,7 +65,7 @@ export function ProductTypeBadge({ type }: ProductTypeBadgeProps) {
       className={[
         "inline-flex rounded-full px-2 py-1 text-[12px] font-semibold",
         type === "Physical"
-          ? "bg-primary-100 text-primary-700"
+          ? "bg-primary-100 text-primary-800"
           : "bg-neutral-200 text-neutral-700"
       ].join(" ")}
     >

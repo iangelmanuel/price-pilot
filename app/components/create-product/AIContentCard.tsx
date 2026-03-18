@@ -4,7 +4,14 @@ import { useState } from "react"
 import { useProduct } from "@/app/hook/useProduct"
 import { SparklesIcon } from "../dashboard/icons"
 import { SectionCard, SectionCardHeader } from "@/app/components/ui/card"
-import { FieldInput, FieldLabel } from "@/app/components/ui/form"
+import { Button } from "@/app/components/ui/button"
+import { InlineLoader } from "@/app/components/ui/loader"
+import {
+  DecimalFieldInput,
+  FieldInput,
+  FieldLabel
+} from "@/app/components/ui/form"
+import { parseDecimalInput } from "@/app/utils/parseDecimalInput"
 
 export function AIContentCard() {
   const {
@@ -54,7 +61,7 @@ export function AIContentCard() {
       />
 
       <div className="space-y-4 p-4">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <FieldLabel>Número del producto</FieldLabel>
             <FieldInput
@@ -74,24 +81,26 @@ export function AIContentCard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <FieldLabel>Precio actual (COP)</FieldLabel>
-            <FieldInput
+            <DecimalFieldInput
               value={aiCurrentPrice ? String(aiCurrentPrice) : ""}
-              onChange={(e) => setAiCurrentPrice(Number(e.target.value) || 0)}
+              onChange={(e) =>
+                setAiCurrentPrice(parseDecimalInput(e.target.value))
+              }
               placeholder="65000"
-              type="number"
             />
           </div>
 
           <div>
             <FieldLabel>Precio anterior (COP)</FieldLabel>
-            <FieldInput
+            <DecimalFieldInput
               value={aiPreviousPrice ? String(aiPreviousPrice) : ""}
-              onChange={(e) => setAiPreviousPrice(Number(e.target.value) || 0)}
+              onChange={(e) =>
+                setAiPreviousPrice(parseDecimalInput(e.target.value))
+              }
               placeholder="110000"
-              type="number"
             />
           </div>
         </div>
@@ -102,27 +111,33 @@ export function AIContentCard() {
             value={aiDescription}
             onChange={(e) => setAiDescription(e.target.value)}
             placeholder="Juego de mesa Junior inspirado en el mundo de Super Mario"
-            className="mt-2 min-h-28 w-full resize-y rounded-lg border border-neutral-200 bg-neutral-100 px-3 py-2 text-[14px] text-neutral-600 placeholder:text-neutral-400"
+            className="mt-2 min-h-28 w-full resize-y rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-[14px] text-neutral-700 placeholder:text-neutral-400 outline-none transition-colors focus:border-primary-300 focus:ring-2 focus:ring-primary-200"
           />
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
+        <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
+          <Button
+            variant="primary"
             onClick={handleGenerate}
             disabled={!canGenerate || isAiGenerating}
-            className="rounded-lg bg-primary-500 px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {isAiGenerating ? "Generando..." : "Generar mensaje con IA"}
-          </button>
+            {isAiGenerating ? (
+              <InlineLoader
+                className="text-white"
+                textClassName="text-white"
+                label="Generando mensaje..."
+              />
+            ) : (
+              "Generar mensaje con IA"
+            )}
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            variant="secondary"
             onClick={handleClear}
-            className="rounded-lg border border-neutral-200 bg-white px-4 py-2 text-[14px] font-semibold text-neutral-700 transition-colors hover:bg-neutral-100"
           >
             Limpiar mensaje
-          </button>
+          </Button>
         </div>
 
         {error ? <p className="text-sm text-red-600">{error}</p> : null}

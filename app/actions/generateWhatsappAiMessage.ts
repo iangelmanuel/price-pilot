@@ -262,7 +262,7 @@ Regla crítica:
 Genera SOLO el texto final con este formato y estilo:
 🆔 Código:912
 🔎 Monopoly Junior Super Mario Edition
-Precio Spring 🍂: $65.000
+✔️ Precio hoy: $65.000
 ❌ Antes: $110.000 (inclúyelo solo si hay precio anterior > 0)
 
 ✨ Beneficio o característica 1
@@ -271,7 +271,7 @@ Precio Spring 🍂: $65.000
 ✨ Beneficio o característica 4
 ✨ Beneficio o característica 5
 
-🍁 Aprovecha Spring Deal Days aquí 👉 wa.link/znboo2
+💌 Aprovecha esta oferta aquí 👉 wa.link/znboo2
 
 Reglas estrictas:
 - Responde SIEMPRE en español.

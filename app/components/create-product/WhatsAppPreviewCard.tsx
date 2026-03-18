@@ -5,6 +5,7 @@ import { CheckDoubleIcon, ClipboardIcon } from "../dashboard/icons"
 import { copyProductPrivData } from "@/app/utils/copyProductPrivData"
 import { SectionCard, SectionCardHeader } from "@/app/components/ui/card"
 import { IconActionButton } from "@/app/components/ui/form"
+import { InlineLoader } from "@/app/components/ui/loader"
 
 export function WhatsAppPreviewCard() {
   const {
@@ -20,10 +21,10 @@ export function WhatsAppPreviewCard() {
     <SectionCard>
       <SectionCardHeader title="Vista previa de WhatsApp" />
 
-      <div className="bg-neutral-100 h-full">
+      <div className="h-full bg-neutral-100">
         {productLink && (
-          <div className="relative bg-neutral-100 p-4">
-            <div className="mx-auto w-full max-w-105 rounded-xl bg-primary-200 p-3 shadow-[0_8px_18px_rgba(0,0,0,0.12)]">
+          <div className="relative bg-neutral-100 p-3 sm:p-4">
+            <div className="mx-auto w-full max-w-full rounded-xl border border-primary-100 bg-primary-100 p-3 shadow-[0_8px_18px_rgba(0,0,0,0.08)] sm:max-w-105">
               <div className="mt-2 space-y-0.5 text-[13px] text-neutral-900">
                 <p className="flex items-center gap-1.5">
                   <strong>Link:</strong> {productLink}
@@ -65,7 +66,7 @@ export function WhatsAppPreviewCard() {
                   })
                 )
               }
-              className="absolute right-5 top-4"
+              className="absolute right-3 top-3 sm:right-5 sm:top-4"
             >
               <ClipboardIcon className="h-4.5 w-4.5" />
             </IconActionButton>
@@ -73,21 +74,19 @@ export function WhatsAppPreviewCard() {
         )}
 
         {(aiGeneratedMessage || isAiGenerating) && (
-          <div className="relative bg-neutral-100 px-4 pb-4 pt-5">
-            <div className="mx-auto w-full max-w-105 rounded-xl bg-primary-200 p-3 shadow-[0_8px_18px_rgba(0,0,0,0.12)]">
+          <div className="relative bg-neutral-100 px-3 pb-3 pt-4 sm:px-4 sm:pb-4 sm:pt-5">
+            <div className="mx-auto w-full max-w-full rounded-xl border border-primary-100 bg-primary-100 p-3 shadow-[0_8px_18px_rgba(0,0,0,0.08)] sm:max-w-105">
               <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-purple-500">
                 Mensaje generado por IA
               </p>
 
               <p className="wrap-break-word whitespace-pre-line rounded-md  px-3 py-2 text-[14px] leading-7 tracking-[0.01em] text-neutral-900">
-                {aiGeneratedMessage || "Generando mensaje..."}
-                {isAiGenerating && (
-                  <span
-                    aria-label="Escribiendo"
-                    className="ml-0.5 inline-block animate-pulse text-primary-700"
-                  >
-                    ▋
-                  </span>
+                {aiGeneratedMessage || (
+                  <InlineLoader
+                    className="text-neutral-500"
+                    textClassName="text-neutral-500"
+                    label="Pensando..."
+                  />
                 )}
               </p>
 
@@ -100,7 +99,7 @@ export function WhatsAppPreviewCard() {
             <IconActionButton
               onClick={() => navigator.clipboard.writeText(aiGeneratedMessage)}
               disabled={!aiGeneratedMessage}
-              className="absolute right-5 top-5"
+              className="absolute right-3 top-4 sm:right-5 sm:top-5"
             >
               <ClipboardIcon className="h-4.5 w-4.5" />
             </IconActionButton>

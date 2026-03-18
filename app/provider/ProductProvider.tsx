@@ -4,6 +4,17 @@ import { createContext, useState, useEffect, type ReactNode } from "react"
 import { readStreamableValue } from "@ai-sdk/rsc"
 import { generateWhatsappAiMessage } from "@/app/actions/generateWhatsappAiMessage"
 
+const PRICE_SETTINGS_STORAGE_KEY = "price-pilot:price-settings:v1"
+
+type StoredPriceSettings = {
+  trm: number
+  companyCommission: number
+  deliveryCost: number
+  costByPound: number
+  porcentageIncrease: number
+  isTrmChanging: boolean
+}
+
 type ProductContextType = {
   // Data
   productLink: string
@@ -93,8 +104,96 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   // Settings
   const [loading, setLoading] = useState(false)
   const [isTrmChanging, setIsTrmChanging] = useState(false)
+  const [isSettingsHydrated, setIsSettingsHydrated] = useState(false)
 
   useEffect(() => {
+    try {
+      const raw = localStorage.getItem(PRICE_SETTINGS_STORAGE_KEY)
+
+      if (!raw) {
+        setIsSettingsHydrated(true)
+        return
+      }
+
+      const parsed = JSON.parse(raw) as Partial<StoredPriceSettings>
+
+      if (typeof parsed.trm === "number" && Number.isFinite(parsed.trm)) {
+        setTrm(parsed.trm)
+      }
+
+      if (
+        typeof parsed.companyCommission === "number" &&
+        Number.isFinite(parsed.companyCommission)
+      ) {
+        setCompanyCommission(parsed.companyCommission)
+      }
+
+      if (
+        typeof parsed.deliveryCost === "number" &&
+        Number.isFinite(parsed.deliveryCost)
+      ) {
+        setDeliveryCost(parsed.deliveryCost)
+      }
+
+      if (
+        typeof parsed.costByPound === "number" &&
+        Number.isFinite(parsed.costByPound)
+      ) {
+        setCostByPound(parsed.costByPound)
+      }
+
+      if (
+        typeof parsed.porcentageIncrease === "number" &&
+        Number.isFinite(parsed.porcentageIncrease)
+      ) {
+        setPorcentageIncrease(parsed.porcentageIncrease)
+      }
+
+      if (typeof parsed.isTrmChanging === "boolean") {
+        setIsTrmChanging(parsed.isTrmChanging)
+      }
+    } catch (error) {
+      console.error("Error hydrating price settings:", error)
+    } finally {
+      setIsSettingsHydrated(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isSettingsHydrated) return
+
+    const settings: StoredPriceSettings = {
+      trm,
+      companyCommission,
+      deliveryCost,
+      costByPound,
+      porcentageIncrease,
+      isTrmChanging
+    }
+
+    try {
+      localStorage.setItem(PRICE_SETTINGS_STORAGE_KEY, JSON.stringify(settings))
+    } catch (error) {
+      console.error("Error saving price settings:", error)
+    }
+  }, [
+    trm,
+    companyCommission,
+    deliveryCost,
+    costByPound,
+    porcentageIncrease,
+    isTrmChanging,
+    isSettingsHydrated
+  ])
+
+  useEffect(() => {
+    if (!isSettingsHydrated) return
+
+    if (isTrmChanging && trm > 0) {
+      setLoading(false)
+      return
+    }
+
     const fetchTrm = async () => {
       setLoading(true)
       const url = "https://hexarate.paikama.co/api/rates/USD/COP/latest"
@@ -110,7 +209,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
       }
     }
     fetchTrm()
-  }, [])
+  }, [isSettingsHydrated, isTrmChanging, trm])
 
   const clearData = () => {
     setProductLink("")
