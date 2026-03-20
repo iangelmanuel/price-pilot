@@ -10,13 +10,13 @@ const cards: StatCard[] = [
   {
     title: "Productos publicados",
     value: "856",
-    barColor: "#3b82f6",
+    barColor: "#8b5cf6",
     barWidth: "62%"
   },
   {
     title: "Productos pendientes",
     value: "428",
-    barColor: "#93c5fd",
+    barColor: "#c4b5fd",
     barWidth: "28%"
   }
 ]

@@ -5,9 +5,9 @@
   --foreground: #171717;
 
   --surface: #ffffff;
-  --surface-soft: #f8fbff;
-  --surface-muted: #f2f6fc;
-  --ring: #3b82f6;
+  --surface-soft: #fbf9ff;
+  --surface-muted: #f6f2fb;
+  --ring: #8a6fc2;
 }
 
 @theme inline {
@@ -16,16 +16,16 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+  --color-primary-50: #f7f5fb;
+  --color-primary-100: #efeaf8;
+  --color-primary-200: #e2d9f3;
+  --color-primary-300: #cdbce8;
+  --color-primary-400: #b49ad9;
+  --color-primary-500: #8a6fc2;
+  --color-primary-600: #7658b1;
+  --color-primary-700: #62449a;
+  --color-primary-800: #52387f;
+  --color-primary-900: #432f67;
 
   --color-neutral-50: #f8fafc;
   --color-neutral-100: #f1f5f9;
@@ -47,7 +47,7 @@
 }
 
 body {
-  background: radial-gradient(circle at 20% 0%, #f3f8ff 0%, #ffffff 35%)
+  background: radial-gradient(circle at 20% 0%, #faf8fe 0%, #ffffff 35%)
     no-repeat;
   color: var(--foreground);
   font-family: var(--font-geist-sans), Inter, "Segoe UI", sans-serif;
@@ -55,10 +55,10 @@ body {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #cdd9ea transparent;
+  scrollbar-color: #d5cfe2 transparent;
 }
 
 *::selection {
-  background: #dbeafe;
+  background: #efeaf8;
   color: #0f172a;
 }

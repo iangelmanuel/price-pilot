@@ -3,7 +3,7 @@ import { CreateProduct } from "@/app/components/create-product/CreateProduct"
 export default function CrearProductoPage() {
   return (
     <>
-      <header className="rounded-2xl border border-primary-100 bg-[linear-gradient(180deg,#ffffff_0%,#f3f8ff_100%)] p-4 shadow-[0_10px_30px_rgba(15,23,42,0.04)] sm:p-6">
+      <header className="rounded-2xl border border-primary-100 bg-[linear-gradient(180deg,#ffffff_0%,#f8f5ff_100%)] p-4 shadow-[0_10px_30px_rgba(15,23,42,0.04)] sm:p-6">
         <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-primary-700">
           Flujo guiado
         </p>

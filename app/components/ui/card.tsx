@@ -14,7 +14,7 @@ type SectionCardHeaderProps = {
 export function SectionCard({ children, tone = "default" }: SectionCardProps) {
   const toneClasses =
     tone === "success"
-      ? "border-primary-200 bg-[linear-gradient(180deg,#ffffff_0%,#eff6ff_100%)]"
+      ? "border-primary-200 bg-[linear-gradient(180deg,#ffffff_0%,#f7f5fb_100%)]"
       : "border-neutral-200 bg-white"
 
   return (

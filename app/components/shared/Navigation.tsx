@@ -21,7 +21,7 @@ export function Navigation() {
       className={[
         "flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-[15px] sm:px-4 sm:py-3 sm:text-[17px] lg:text-[19px] font-medium transition-all",
         pathname === href
-          ? "bg-primary-100 text-primary-900 shadow-[inset_0_0_0_1px_rgba(59,130,246,0.25)]"
+          ? "bg-primary-100 text-primary-900 shadow-[inset_0_0_0_1px_rgba(124,58,237,0.25)]"
           : "text-neutral-700 hover:bg-primary-50 hover:text-primary-900"
       ].join(" ")}
     >

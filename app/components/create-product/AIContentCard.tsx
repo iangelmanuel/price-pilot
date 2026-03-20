@@ -6,6 +6,7 @@ import { SparklesIcon } from "../dashboard/icons"
 import { SectionCard, SectionCardHeader } from "@/app/components/ui/card"
 import { Button } from "@/app/components/ui/button"
 import { InlineLoader } from "@/app/components/ui/loader"
+import { Clipboard } from "lucide-react"
 import {
   DecimalFieldInput,
   FieldInput,
@@ -53,17 +54,40 @@ export function AIContentCard() {
     clearAiMessage()
   }
 
+  const handleCopyProductData = async () => {
+    const payload = [
+      `Código del producto: ${aiProductCode}`,
+      `Título del producto: ${aiTitle}`,
+      `Precio actual: ${aiCurrentPrice ? String(aiCurrentPrice) : ""}`,
+      `Precio anterior: ${aiPreviousPrice ? String(aiPreviousPrice) : ""}`,
+      `Descripción: ${aiDescription}`
+    ].join("\n")
+
+    await navigator.clipboard.writeText(payload)
+  }
+
   return (
     <SectionCard>
       <SectionCardHeader
         title="Asistente IA para WhatsApp"
         icon={<SparklesIcon className="h-4 w-4 text-primary-600" />}
+        rightSlot={
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleCopyProductData}
+            className="border-primary-200 bg-primary-50 text-primary-700 hover:border-primary-300 hover:bg-primary-100 hover:text-primary-800"
+          >
+            <Clipboard className="h-4 w-4" />
+            Copiar datos
+          </Button>
+        }
       />
 
       <div className="space-y-4 p-4">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <FieldLabel>Número del producto</FieldLabel>
+            <FieldLabel>Código del producto</FieldLabel>
             <FieldInput
               value={aiProductCode}
               onChange={(e) => setAiProductCode(e.target.value)}

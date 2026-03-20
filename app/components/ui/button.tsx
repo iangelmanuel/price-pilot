@@ -23,7 +23,7 @@ export function Button({
 }: ButtonProps) {
   const variantClasses =
     variant === "primary"
-      ? "bg-primary-500 text-white shadow-[0_8px_20px_rgba(37,99,235,0.25)] hover:bg-primary-600"
+      ? "bg-primary-500 text-white shadow-[0_8px_20px_rgba(124,58,237,0.25)] hover:bg-primary-600"
       : variant === "ghost"
         ? "bg-transparent text-neutral-600 hover:bg-primary-50 hover:text-primary-700"
         : "border border-neutral-200 bg-white text-neutral-700 hover:border-primary-200 hover:bg-primary-50 hover:text-primary-800"
@@ -39,7 +39,7 @@ export function Button({
     <button
       type="button"
       className={[
-        "inline-flex items-center justify-center gap-1.5 font-medium transition-colors",
+        "inline-flex cursor-pointer items-center justify-center gap-1.5 font-medium transition-colors",
         "disabled:cursor-not-allowed disabled:opacity-50",
         variantClasses,
         sizeClasses,

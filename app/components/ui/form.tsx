@@ -110,7 +110,7 @@ export function SelectionPill({
       type="button"
       onClick={onClick}
       className={[
-        "rounded-full px-2.5 py-1 text-[13px] transition-colors",
+        "cursor-pointer rounded-full px-2.5 py-1 text-[13px] transition-colors",
         active
           ? "bg-primary-500 text-white"
           : "bg-neutral-200 text-neutral-700 hover:bg-primary-100 hover:text-primary-800"

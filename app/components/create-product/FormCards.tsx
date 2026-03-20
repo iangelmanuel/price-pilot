@@ -8,7 +8,6 @@ import {
 } from "../dashboard/icons"
 import { formatCop } from "@/app/utils/formatCurrency"
 import { SectionCard, SectionCardHeader } from "@/app/components/ui/card"
-import { Button } from "@/app/components/ui/button"
 import { InlineLoader } from "@/app/components/ui/loader"
 import {
   DecimalFieldInput,
@@ -53,9 +52,7 @@ export function ConversionCard() {
     setDeliveryCost,
     setIsTrmChanging,
     setCostByPound,
-    setPorcentageIncrease,
-
-    clearData
+    setPorcentageIncrease
   } = useProduct()
 
   const priceWithCompanyCommission = trm + companyCommission
@@ -74,20 +71,10 @@ export function ConversionCard() {
             <ConversionIcon className="h-3 w-3" />
           </span>
         }
-        rightSlot={
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => clearData()}
-            className="active:scale-95"
-          >
-            Limpiar datos
-          </Button>
-        }
       />
 
       <div className="space-y-3 p-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary-200 bg-[linear-gradient(180deg,#eaf2ff_0%,#dbeafe_100%)] px-4 py-3 shadow-[0_8px_20px_rgba(37,99,235,0.16)]">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary-200 bg-[linear-gradient(180deg,#f6f2ff_0%,#ede9fe_100%)] px-4 py-3 shadow-[0_8px_20px_rgba(124,58,237,0.16)]">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-primary-700">
               Precio final COP

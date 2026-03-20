@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#f5f9ff_0%,#eef4ff_28%,#f8fafc_100%)] text-neutral-900">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#faf7ff_0%,#f3edff_28%,#f8fafc_100%)] text-neutral-900">
       <div className="flex min-h-screen">
         <div className="hidden lg:block">
           <Sidebar />
