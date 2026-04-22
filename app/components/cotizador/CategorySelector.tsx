@@ -18,12 +18,14 @@ export function CategorySelector() {
   const { productCategory, setProductCategory } = useProduct()
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-4">
-      <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-        Categoría del producto
-      </p>
+    <div className="overflow-hidden rounded-2xl border border-border bg-card">
+      <div className="border-b border-border/60 px-4 py-3">
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+          Categoría del producto
+        </p>
+      </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 p-4">
         {CATEGORIES.map(({ value, label, emoji, hint }) => {
           const active = productCategory === value
           return (
@@ -33,10 +35,10 @@ export function CategorySelector() {
               onClick={() => setProductCategory(value)}
               title={hint}
               className={cn(
-                "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[13px] font-medium transition-all",
+                "flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[13px] font-medium transition-all",
                 active
-                  ? "border-primary/50 bg-primary/15 text-primary"
-                  : "border-border bg-muted text-muted-foreground hover:border-primary/30 hover:bg-primary/10 hover:text-primary"
+                  ? "border-primary/30 bg-primary/10 text-primary"
+                  : "border-border bg-secondary/40 text-muted-foreground hover:border-border/80 hover:bg-secondary hover:text-foreground"
               )}
             >
               <span>{emoji}</span>

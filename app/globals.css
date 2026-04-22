@@ -6,47 +6,47 @@
 /* ── Light mode (ShadCN CSS variables) ────────────────────────── */
 :root {
   --background: #ffffff;
-  --foreground: #09090b;
+  --foreground: #0a0a0a;
   --card: #ffffff;
-  --card-foreground: #09090b;
+  --card-foreground: #0a0a0a;
   --popover: #ffffff;
-  --popover-foreground: #09090b;
+  --popover-foreground: #0a0a0a;
   --primary: #8a6fc2;
   --primary-foreground: #ffffff;
-  --secondary: #eff1f6;
+  --secondary: #f4f4f6;
   --secondary-foreground: #18181b;
-  --muted: #eff1f6;
-  --muted-foreground: #71717a;
-  --accent: #e8ecf6;
+  --muted: #f4f4f6;
+  --muted-foreground: #6b6b7a;
+  --accent: #ebebef;
   --accent-foreground: #18181b;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #b8bfd0;
-  --input: #f7f8fc;
+  --border: #e2e2e8;
+  --input: #f4f4f6;
   --ring: #8a6fc2;
   --radius: 0.75rem;
 }
 
-/* ── Dark mode — true black/zinc ──────────────────────────────── */
+/* ── Dark mode — Vercel-neutral dark ──────────────────────────── */
 .dark {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --card: #101116;
-  --card-foreground: #fafafa;
-  --popover: #101116;
-  --popover-foreground: #fafafa;
+  --background: #08080b;
+  --foreground: #ededed;
+  --card: #111115;
+  --card-foreground: #ededed;
+  --popover: #111115;
+  --popover-foreground: #ededed;
   --primary: #a78bfa;
   --primary-foreground: #09090b;
-  --secondary: #1f222d;
-  --secondary-foreground: #e4e4e7;
-  --muted: #171922;
-  --muted-foreground: #939cb1;
-  --accent: #232734;
-  --accent-foreground: #fafafa;
+  --secondary: #1c1c23;
+  --secondary-foreground: #d4d4d8;
+  --muted: #18181e;
+  --muted-foreground: #888899;
+  --accent: #1e1e27;
+  --accent-foreground: #ededed;
   --destructive: #f87171;
   --destructive-foreground: #09090b;
-  --border: #343949;
-  --input: #181c28;
+  --border: #252530;
+  --input: #141419;
   --ring: #a78bfa;
 }
 

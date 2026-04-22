@@ -249,7 +249,9 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   }
 
   const advanceProductCode = () => {
-    const next = lastProductCode >= 999 ? 1 : lastProductCode + 1
+    const current = parseInt(aiProductCode, 10)
+    const base = isNaN(current) ? lastProductCode : current
+    const next = base >= 999 ? 1 : base + 1
     setLastProductCode(next)
     setAiProductCode(String(next).padStart(3, "0"))
   }
@@ -307,6 +309,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     setAiGeneratedMessage("")
     setIsAiGenerating(false)
     setProductCategoryState("general")
+    advanceProductCode()
   }
 
   const value: ProductContextType = {

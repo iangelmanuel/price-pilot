@@ -71,9 +71,9 @@ export function AIAssistantForm() {
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-4">
-      <div className="mb-4 flex items-center justify-between">
-        <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+    <div className="overflow-hidden rounded-2xl border border-border bg-card">
+      <div className="flex items-center justify-between border-b border-border/60 px-4 py-3">
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
           Asistente IA · WhatsApp
         </p>
         <div className="flex items-center gap-2">
@@ -85,7 +85,7 @@ export function AIAssistantForm() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 p-4">
         {/* Code + Title */}
         <div className="grid grid-cols-[auto_1fr] gap-3">
           <div>
@@ -189,10 +189,10 @@ export function AIAssistantForm() {
             }}
             placeholder="Juego de mesa inspirado en Super Mario&#10;Para niños y adultos&#10;Incluye piezas coleccionables"
             className={cn(
-              "mt-1.5 min-h-24 w-full resize-y rounded-lg border border-border bg-input px-3 py-2",
-              "text-sm text-foreground placeholder:text-muted-foreground",
+              "mt-1.5 min-h-24 w-full resize-y rounded-xl border border-border bg-input px-3 py-2",
+              "text-sm text-foreground placeholder:text-muted-foreground/50",
               "outline-none transition-colors",
-              "focus:border-ring focus:ring-2 focus:ring-ring/20"
+              "focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
             )}
           />
           <p className="mt-1 text-[11px] text-muted-foreground">
@@ -217,7 +217,7 @@ export function AIAssistantForm() {
         </div>
 
         {error && (
-          <p className="rounded-lg border border-destructive/20 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+          <p className="rounded-xl border border-destructive/20 bg-destructive/10 px-3 py-2 text-sm text-destructive">
             {error}
           </p>
         )}

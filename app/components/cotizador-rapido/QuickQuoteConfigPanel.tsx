@@ -32,8 +32,8 @@ function OptionButton({
       className={cn(
         "rounded-lg border px-2.5 py-1.5 text-[12px] font-semibold transition-colors",
         active
-          ? "border-primary/50 bg-primary/15 text-primary"
-          : "border-input bg-background text-muted-foreground hover:border-primary/35 hover:bg-accent hover:text-foreground"
+          ? "border-primary/30 bg-primary/10 text-primary"
+          : "border-border bg-secondary/40 text-muted-foreground hover:border-border/80 hover:bg-secondary hover:text-foreground"
       )}
     >
       {label}
@@ -61,23 +61,23 @@ export function QuickQuoteConfigPanel({ className }: Props) {
   return (
     <section
       className={cn(
-        "flex flex-col rounded-2xl border border-input bg-background/60 p-4 space-y-5",
+        "flex flex-col overflow-hidden rounded-2xl border border-border bg-card",
         className
       )}
     >
-      <div className="mb-3">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
+      <div className="border-b border-border/60 px-4 py-3">
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-primary">
           Paso 2
         </p>
-        <h2 className="text-[20px] font-extrabold leading-none tracking-[-0.02em] text-foreground">
+        <h2 className="mt-0.5 text-[18px] font-extrabold leading-none tracking-[-0.02em] text-foreground">
           Configuración rápida
         </h2>
       </div>
 
-      <div className="space-y-3">
-        <div className="rounded-xl border border-input bg-background p-3">
+      <div className="flex flex-1 flex-col space-y-4 p-4">
+        <div className="rounded-xl border border-border bg-secondary/30 p-3">
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
               TRM
             </p>
             <label className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
@@ -105,7 +105,7 @@ export function QuickQuoteConfigPanel({ className }: Props) {
         </div>
 
         <div>
-          <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+          <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
             Comisión COP
           </p>
           <div className="flex gap-1.5">
@@ -121,7 +121,7 @@ export function QuickQuoteConfigPanel({ className }: Props) {
         </div>
 
         <div>
-          <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+          <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
             Incremento %
           </p>
           <div className="flex gap-1.5">
@@ -137,7 +137,7 @@ export function QuickQuoteConfigPanel({ className }: Props) {
         </div>
 
         <div>
-          <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+          <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
             Costo por libra
           </p>
           <div className="flex gap-1.5">
@@ -151,17 +151,17 @@ export function QuickQuoteConfigPanel({ className }: Props) {
             ))}
           </div>
         </div>
-      </div>
 
-      <label className="mt-auto flex items-center justify-between rounded-xl border border-input bg-background px-3 py-2">
-        <span className="text-[18px] font-semibold text-foreground">
-          Envío fijo +$10.000
-        </span>
-        <Switch
-          checked={deliveryCost > 0}
-          onCheckedChange={(checked) => setDeliveryCost(checked ? 10000 : 0)}
-        />
-      </label>
+        <label className="mt-auto flex items-center justify-between rounded-xl border border-border bg-secondary/30 px-3 py-2.5">
+          <span className="text-[13px] font-semibold text-foreground">
+            Envío fijo +$10.000
+          </span>
+          <Switch
+            checked={deliveryCost > 0}
+            onCheckedChange={(checked) => setDeliveryCost(checked ? 10000 : 0)}
+          />
+        </label>
+      </div>
     </section>
   )
 }

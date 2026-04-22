@@ -19,24 +19,24 @@ export function QuickQuoteLayout() {
 
   return (
     <section
-      className="flex overflow-hidden rounded-3xl border border-input bg-card p-3 sm:p-4 lg:p-5"
+      className="flex overflow-hidden rounded-2xl border border-border bg-card p-3 sm:p-4 lg:p-5"
       style={{ height: "calc(100dvh - 10rem)" }}
     >
       <div className="flex min-h-0 w-full flex-1 flex-col">
-        <header className="mb-3 rounded-2xl border border-input bg-linear-to-r from-primary/12 via-primary/8 to-background p-3 sm:p-4">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
-            Cotizaciones rápida
+        <header className="mb-4 border-b border-border/60 pb-4">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-primary">
+            Cotización rápida
           </p>
-          <h1 className="text-[24px] font-extrabold leading-none tracking-[-0.03em] text-foreground sm:text-[30px]">
+          <h1 className="mt-0.5 text-[24px] font-extrabold leading-none tracking-[-0.03em] text-foreground sm:text-[30px]">
             Cotizador exprés
           </h1>
-          <p className="mt-1 text-[12px] text-muted-foreground sm:text-[13px]">
+          <p className="mt-1.5 text-[12px] text-muted-foreground sm:text-[13px]">
             Enfócate en lo esencial: precio, libras y ajustes clave. Todo
             visible en una sola pantalla.
           </p>
         </header>
 
-        <div className="hidden grid-cols-3 gap-5 lg:grid items-center">
+        <div className="hidden grid-cols-3 gap-4 lg:grid items-stretch">
           <QuickQuoteInputPanel className="flex-1" />
           <QuickQuoteConfigPanel className="flex-1" />
           <QuickQuoteResultPanel className="flex-1" />

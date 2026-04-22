@@ -41,10 +41,10 @@ function Pill({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full border px-2.5 py-1 text-[12px] font-semibold transition-all",
+        "rounded-lg border px-2.5 py-1 text-[12px] font-semibold transition-all",
         active
-          ? "border-primary/50 bg-primary/15 text-primary"
-          : "border-input bg-background text-muted-foreground hover:border-primary/35 hover:bg-accent hover:text-foreground"
+          ? "border-primary/30 bg-primary/10 text-primary"
+          : "border-border bg-secondary/40 text-muted-foreground hover:border-border/80 hover:bg-secondary hover:text-foreground"
       )}
     >
       {label}
@@ -66,7 +66,7 @@ function SwitchRow({
   return (
     <label
       className={cn(
-        "flex cursor-pointer items-center justify-between rounded-lg border border-input bg-background px-3 py-2",
+        "flex cursor-pointer items-center justify-between rounded-xl border border-border bg-secondary/30 px-3 py-2.5",
         disabled && "cursor-not-allowed opacity-40"
       )}
     >
@@ -101,14 +101,16 @@ export function PriceConfigCard() {
   const isAmazon = shippingMode === "amazon"
 
   return (
-    <div className="rounded-2xl border border-input bg-card">
+    <div className="overflow-hidden rounded-2xl border border-border bg-card">
       {/* TRM */}
-      <div className="p-4">
-        <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+      <div className="border-b border-border/60 px-4 py-3">
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
           TRM · Comisión
         </p>
+      </div>
 
-        <div className="flex items-center gap-2 rounded-lg border border-input bg-background px-3 py-2">
+      <div className="p-4">
+        <div className="flex items-center gap-2 rounded-xl border border-border bg-secondary/30 px-3 py-2.5">
           <span className="text-[13px] font-semibold text-muted-foreground">
             1 USD =
           </span>
@@ -161,11 +163,13 @@ export function PriceConfigCard() {
       <Separator />
 
       {/* Adjustments */}
-      <div className="p-4">
-        <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+      <div className="border-b border-border/60 px-4 py-3">
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
           Ajustes rápidos
         </p>
+      </div>
 
+      <div className="p-4">
         <div className="space-y-2">
           <SwitchRow
             label="Envío +$10.000"

@@ -36,12 +36,14 @@ export function ProductSourceForm({ usdPriceRef }: Props) {
   const priceRef = usdPriceRef ?? internalRef
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-4">
-      <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-        Fuente del producto
-      </p>
+    <div className="overflow-hidden rounded-2xl border border-border bg-card">
+      <div className="border-b border-border/60 px-4 py-3">
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+          Fuente del producto
+        </p>
+      </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 p-4">
         {/* Link */}
         <div>
           <Label htmlFor="product-link">Enlace del producto</Label>
@@ -99,7 +101,7 @@ export function ProductSourceForm({ usdPriceRef }: Props) {
                 placeholder="0.00"
                 className={cn(
                   "pl-7 text-[16px] font-semibold",
-                  businessPrice > 0 && "border-primary/40 bg-primary/10 text-primary"
+                  businessPrice > 0 && "border-primary/40 bg-primary/8 text-primary"
                 )}
               />
             </div>
