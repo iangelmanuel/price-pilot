@@ -12,25 +12,25 @@ const COMMISSION_OPTIONS = [
   { label: "+0", value: 0 },
   { label: "+150", value: 150 },
   { label: "+200", value: 200 },
-  { label: "+300", value: 300 },
+  { label: "+300", value: 300 }
 ]
 
 const INCREMENT_OPTIONS = [
   { label: "0%", value: 1 },
   { label: "+15%", value: 1.15 },
-  { label: "+20%", value: 1.2 },
+  { label: "+20%", value: 1.2 }
 ]
 
 const POUND_OPTIONS = [
   { label: "+0", value: 0 },
   { label: "+18.000", value: 18000 },
-  { label: "+30.000", value: 30000 },
+  { label: "+30.000", value: 30000 }
 ]
 
 function Pill({
   label,
   active,
-  onClick,
+  onClick
 }: {
   label: string
   active: boolean
@@ -44,7 +44,7 @@ function Pill({
         "rounded-full border px-2.5 py-1 text-[12px] font-semibold transition-all",
         active
           ? "border-primary/50 bg-primary/15 text-primary"
-          : "border-border bg-muted text-muted-foreground hover:border-primary/30 hover:bg-primary/10 hover:text-primary"
+          : "border-input bg-background text-muted-foreground hover:border-primary/35 hover:bg-accent hover:text-foreground"
       )}
     >
       {label}
@@ -56,7 +56,7 @@ function SwitchRow({
   label,
   checked,
   onChange,
-  disabled,
+  disabled
 }: {
   label: string
   checked: boolean
@@ -66,39 +66,52 @@ function SwitchRow({
   return (
     <label
       className={cn(
-        "flex cursor-pointer items-center justify-between rounded-lg border border-border bg-muted px-3 py-2",
+        "flex cursor-pointer items-center justify-between rounded-lg border border-input bg-background px-3 py-2",
         disabled && "cursor-not-allowed opacity-40"
       )}
     >
       <span className="text-[13px] font-medium text-foreground">{label}</span>
-      <Switch checked={checked} onCheckedChange={onChange} disabled={disabled} />
+      <Switch
+        checked={checked}
+        onCheckedChange={onChange}
+        disabled={disabled}
+      />
     </label>
   )
 }
 
 export function PriceConfigCard() {
   const {
-    trm, setTrm,
-    companyCommission, setCompanyCommission,
-    deliveryCost, setDeliveryCost,
-    costByPound, setCostByPound,
-    porcentageIncrease, setPorcentageIncrease,
-    isTrmChanging, setIsTrmChanging,
-    loading, shippingMode,
+    trm,
+    setTrm,
+    companyCommission,
+    setCompanyCommission,
+    deliveryCost,
+    setDeliveryCost,
+    costByPound,
+    setCostByPound,
+    porcentageIncrease,
+    setPorcentageIncrease,
+    isTrmChanging,
+    setIsTrmChanging,
+    loading,
+    shippingMode
   } = useProduct()
 
   const isAmazon = shippingMode === "amazon"
 
   return (
-    <div className="rounded-2xl border border-border bg-card">
+    <div className="rounded-2xl border border-input bg-card">
       {/* TRM */}
       <div className="p-4">
         <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
           TRM · Comisión
         </p>
 
-        <div className="flex items-center gap-2 rounded-lg border border-border bg-muted px-3 py-2">
-          <span className="text-[13px] font-semibold text-muted-foreground">1 USD =</span>
+        <div className="flex items-center gap-2 rounded-lg border border-input bg-background px-3 py-2">
+          <span className="text-[13px] font-semibold text-muted-foreground">
+            1 USD =
+          </span>
           {loading ? (
             <Skeleton className="h-5 w-24" />
           ) : (
@@ -161,7 +174,9 @@ export function PriceConfigCard() {
           />
 
           <div className="space-y-1.5">
-            <p className="text-[12px] font-semibold text-muted-foreground">Incremento</p>
+            <p className="text-[12px] font-semibold text-muted-foreground">
+              Incremento
+            </p>
             <div className="flex flex-wrap gap-1.5">
               {INCREMENT_OPTIONS.map((opt) => (
                 <Pill
@@ -177,7 +192,9 @@ export function PriceConfigCard() {
           <div className={cn("space-y-1.5", isAmazon && "opacity-40")}>
             <p className="text-[12px] font-semibold text-muted-foreground">
               Costo por libra
-              {isAmazon && <span className="ml-1 font-normal">(Casillero only)</span>}
+              {isAmazon && (
+                <span className="ml-1 font-normal">(Casillero only)</span>
+              )}
             </p>
             <div className="flex flex-wrap gap-1.5">
               {POUND_OPTIONS.map((opt) => (

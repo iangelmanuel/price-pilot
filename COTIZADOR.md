@@ -28,12 +28,12 @@ PricePilot es una herramienta interna de administración para un negocio de **ca
 
 Esta sección captura la información básica del producto que se va a cotizar.
 
-| Campo | Tipo | Obligatorio | Descripción |
-|---|---|---|---|
-| **Enlace del producto** | URL (texto) | No | Link directo al producto (ej: Amazon). Sirve para referencia, se puede copiar o abrir directamente. |
-| **Precio del producto (USD)** | Número decimal | Sí | El precio de compra en dólares. Este es el valor base de toda la cotización. |
-| **Código de cupón** | Texto | No | Cupón de descuento del producto. Solo para referencia y copia rápida. |
-| **Libras** | Número decimal | No | Peso del producto en libras. Afecta el costo de envío si se selecciona una tarifa por libra. |
+| Campo                         | Tipo           | Obligatorio | Descripción                                                                                         |
+| ----------------------------- | -------------- | ----------- | --------------------------------------------------------------------------------------------------- |
+| **Enlace del producto**       | URL (texto)    | No          | Link directo al producto (ej: Amazon). Sirve para referencia, se puede copiar o abrir directamente. |
+| **Precio del producto (USD)** | Número decimal | Sí          | El precio de compra en dólares. Este es el valor base de toda la cotización.                        |
+| **Código de cupón**           | Texto          | No          | Cupón de descuento del producto. Solo para referencia y copia rápida.                               |
+| **Libras**                    | Número decimal | No          | Peso del producto en libras. Afecta el costo de envío si se selecciona una tarifa por libra.        |
 
 > El campo **Precio USD** acepta tanto punto como coma como separador decimal (ej: `49,99` o `49.99`), adaptado al formato colombiano.
 
@@ -46,7 +46,7 @@ Esta es la sección central del cotizador. Aquí se configura cómo se convierte
 ### 2.1 TRM (Tasa de Cambio)
 
 - **¿Qué es?** La tasa de cambio del dólar americano a peso colombiano. Ejemplo: `4.150` significa que 1 USD = $4.150 COP.
-- **¿De dónde viene?** Se obtiene automáticamente desde la API pública de Hexarate (`hexarate.paikama.co`) al cargar la aplicación. Usa la tasa *mid-market* (punto medio entre compra y venta) redondeada hacia arriba.
+- **¿De dónde viene?** Se obtiene automáticamente desde la API pública de Hexarate (`hexarate.paikama.co`) al cargar la aplicación. Usa la tasa _mid-market_ (punto medio entre compra y venta) redondeada hacia arriba.
 - **¿Se puede cambiar?** Sí. Al activar el toggle **"Manual"**, el campo TRM se vuelve editable y el usuario puede ingresar la tasa que desee.
 - **Persistencia:** El valor (y si es manual o automático) se guarda en `localStorage`, por lo que al recargar la página se recupera el último valor usado.
 
@@ -55,11 +55,11 @@ Esta es la sección central del cotizador. Aquí se configura cómo se convierte
 Conjunto de opciones (pills) que agrega un valor fijo en COP **sobre** el TRM. Representa el margen de ganancia por la conversión de divisas.
 
 | Opción | Valor agregado al TRM |
-|---|---|
-| `+0` | $0 COP (sin comisión) |
-| `+150` | $150 COP por dólar |
-| `+200` | $200 COP por dólar |
-| `+300` | $300 COP por dólar |
+| ------ | --------------------- |
+| `+0`   | $0 COP (sin comisión) |
+| `+150` | $150 COP por dólar    |
+| `+200` | $200 COP por dólar    |
+| `+300` | $300 COP por dólar    |
 
 > **Ejemplo:** Si TRM = $4.150 y se selecciona `+200`, la tasa efectiva usada en el cálculo es **$4.350 COP por dólar**.
 >
@@ -83,11 +83,11 @@ Conjunto de opciones (pills) que agrega un valor fijo en COP **sobre** el TRM. R
 
 Opciones (pills) que definen cuánto cuesta el envío internacional **por cada libra** del producto.
 
-| Opción | Costo por libra |
-|---|---|
+| Opción     | Costo por libra             |
+| ---------- | --------------------------- |
 | `Libra +0` | $0 COP (sin costo por peso) |
-| `+18.000` | $18.000 COP por libra |
-| `+30.000` | $30.000 COP por libra |
+| `+18.000`  | $18.000 COP por libra       |
+| `+30.000`  | $30.000 COP por libra       |
 
 > Este costo se multiplica por las libras ingresadas en la sección anterior.
 >
@@ -111,17 +111,17 @@ Precio final COP = (Precio USD × Tasa efectiva × Incremento %)
 
 ### Variables de la fórmula
 
-| Variable | Valor posible |
-|---|---|
-| `Precio USD` | Ingresado por el usuario |
-| `TRM` | Auto (API) o manual |
-| `Comisión empresa` | 0, 150, 200 o 300 COP |
-| `Tasa efectiva` | TRM + Comisión |
-| `Incremento %` | 1.0 (sin aumento) o 1.15 (+15%) |
-| `Costo de envío fijo` | 0 o 10.000 COP |
-| `Costo por libra` | 0, 18.000 o 30.000 COP/lb |
-| `Libras` | Ingresado por el usuario |
-| `Costo por peso` | Costo por libra × Libras |
+| Variable              | Valor posible                   |
+| --------------------- | ------------------------------- |
+| `Precio USD`          | Ingresado por el usuario        |
+| `TRM`                 | Auto (API) o manual             |
+| `Comisión empresa`    | 0, 150, 200 o 300 COP           |
+| `Tasa efectiva`       | TRM + Comisión                  |
+| `Incremento %`        | 1.0 (sin aumento) o 1.15 (+15%) |
+| `Costo de envío fijo` | 0 o 10.000 COP                  |
+| `Costo por libra`     | 0, 18.000 o 30.000 COP/lb       |
+| `Libras`              | Ingresado por el usuario        |
+| `Costo por peso`      | Costo por libra × Libras        |
 
 ### Ejemplo de cálculo completo
 
@@ -159,12 +159,12 @@ El precio final se muestra de forma prominente y se actualiza en **tiempo real**
 
 Debajo del precio final, se muestran 4 tiles que desglosan de dónde viene cada parte del precio:
 
-| Tile | Valor que muestra |
-|---|---|
-| **Base** | `Precio USD × Tasa efectiva` (sin el 15%) |
-| **Envío** | Costo fijo de envío (0 o $10.000 COP) |
-| **Libra** | `Costo por libra × Libras` |
-| **Total** | Precio final completo (resaltado) |
+| Tile      | Valor que muestra                         |
+| --------- | ----------------------------------------- |
+| **Base**  | `Precio USD × Tasa efectiva` (sin el 15%) |
+| **Envío** | Costo fijo de envío (0 o $10.000 COP)     |
+| **Libra** | `Costo por libra × Libras`                |
+| **Total** | Precio final completo (resaltado)         |
 
 ### Tasa efectiva
 
@@ -180,13 +180,13 @@ Genera automáticamente un mensaje de WhatsApp listo para publicar, con el produ
 
 ### Campos de entrada
 
-| Campo | Descripción |
-|---|---|
-| **Código del producto** | Código interno (ej: `912`) |
-| **Título del producto** | Nombre del producto para el mensaje |
-| **Precio actual (COP)** | Precio de venta en COP para mostrar en el mensaje |
-| **Precio anterior (COP)** | Precio tachado (precio "antes de descuento") |
-| **Descripción para IA** | Beneficios/características del producto, una por línea |
+| Campo                     | Descripción                                            |
+| ------------------------- | ------------------------------------------------------ |
+| **Código del producto**   | Código interno (ej: `912`)                             |
+| **Título del producto**   | Nombre del producto para el mensaje                    |
+| **Precio actual (COP)**   | Precio de venta en COP para mostrar en el mensaje      |
+| **Precio anterior (COP)** | Precio tachado (precio "antes de descuento")           |
+| **Descripción para IA**   | Beneficios/características del producto, una por línea |
 
 ### Cómo funciona la IA
 
@@ -220,13 +220,15 @@ Precio Spring 🍂: $296.075
 
 ## Persistencia de datos
 
-Toda la configuración de precios se guarda automáticamente en el navegador (`localStorage`) bajo la clave `price-pilot:price-settings:v1`. Incluye:
+Toda la configuración se guarda automáticamente en el navegador (`localStorage`) bajo la clave `price-pilot:price-settings:v2`. Incluye:
 
 - TRM actual y si está en modo manual
 - Comisión seleccionada
 - Costo de envío activo
 - Costo por libra seleccionado
 - Si el incremento del 15% está activo
+- Código actual del producto (IA)
+- Último código y si el auto-avance está activo
 
 Al recargar la página, todos estos valores se restauran automáticamente.
 
@@ -234,18 +236,20 @@ Al recargar la página, todos estos valores se restauran automáticamente.
 
 ## Botón "Limpiar datos"
 
-Ubicado en la barra superior. Resetea **todos** los campos del formulario y el mensaje de IA a su estado inicial (vacío/cero). No afecta la configuración de precios guardada.
+Ubicado en la barra superior. Resetea los campos del formulario y el mensaje de IA a su estado inicial (vacío/cero), **excepto el código del producto**, que se conserva.
+
+No afecta la configuración persistida en `localStorage`.
 
 ---
 
 ## Resumen de todos los valores configurables
 
-| Parámetro | Opciones | Impacto |
-|---|---|---|
-| TRM | Auto (API) o manual | Base de conversión USD→COP |
-| Comisión empresa | 0 / 150 / 200 / 300 COP | Suma a TRM → tasa efectiva |
-| Envío fijo | 0 / 10.000 COP | Suma fija al final |
-| Incremento | 0% / +15% | Multiplica el subtotal |
-| Costo por libra | 0 / 18.000 / 30.000 COP | Multiplica × libras del producto |
-| Precio USD | Libre | Base del cálculo |
-| Libras | Libre | Multiplica × costo por libra |
+| Parámetro        | Opciones                | Impacto                          |
+| ---------------- | ----------------------- | -------------------------------- |
+| TRM              | Auto (API) o manual     | Base de conversión USD→COP       |
+| Comisión empresa | 0 / 150 / 200 / 300 COP | Suma a TRM → tasa efectiva       |
+| Envío fijo       | 0 / 10.000 COP          | Suma fija al final               |
+| Incremento       | 0% / +15%               | Multiplica el subtotal           |
+| Costo por libra  | 0 / 18.000 / 30.000 COP | Multiplica × libras del producto |
+| Precio USD       | Libre                   | Base del cálculo                 |
+| Libras           | Libre                   | Multiplica × costo por libra     |

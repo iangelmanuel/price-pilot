@@ -35,7 +35,7 @@ type SelectionPillProps = {
 
 export function FieldLabel({ children }: FieldLabelProps) {
   return (
-    <label className="block text-[13px] font-semibold tracking-[0.01em] text-neutral-700">
+    <label className="block text-[13px] font-semibold tracking-[0.01em] text-foreground">
       {children}
     </label>
   )
@@ -57,7 +57,7 @@ export function FieldInput({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="mt-2 h-11 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 text-[14px] text-neutral-700 placeholder:text-neutral-400 outline-none transition-colors focus:border-primary-300 focus:ring-2 focus:ring-primary-200"
+      className="mt-2 h-11 w-full rounded-lg border border-input bg-input px-3 text-[14px] text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-ring focus:ring-2 focus:ring-ring/30"
     />
   )
 }
@@ -90,8 +90,8 @@ export function IconActionButton({
       disabled={disabled}
       onClick={onClick}
       className={[
-        "h-11 w-11 border border-transparent bg-neutral-100 text-neutral-500",
-        "hover:border-primary-100 hover:bg-primary-50 hover:text-primary-700 active:scale-95",
+        "h-11 w-11 border border-input bg-muted text-muted-foreground",
+        "hover:border-primary/40 hover:bg-accent hover:text-foreground active:scale-95",
         className ?? ""
       ].join(" ")}
     >
@@ -110,10 +110,10 @@ export function SelectionPill({
       type="button"
       onClick={onClick}
       className={[
-        "cursor-pointer rounded-full px-2.5 py-1 text-[13px] transition-colors",
+        "cursor-pointer rounded-full border px-2.5 py-1 text-[13px] transition-colors",
         active
-          ? "bg-primary-500 text-white"
-          : "bg-neutral-200 text-neutral-700 hover:bg-primary-100 hover:text-primary-800"
+          ? "border-primary/45 bg-primary text-primary-foreground"
+          : "border-input bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
       ].join(" ")}
     >
       {children}

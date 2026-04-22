@@ -12,11 +12,11 @@ export function InlineLoader({
   return (
     <span
       className={[
-        "inline-flex items-center gap-2 text-neutral-500",
+        "inline-flex items-center gap-2 text-muted-foreground",
         className ?? ""
       ].join(" ")}
     >
-      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-primary-200 border-t-primary-600" />
+      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-primary/35 border-t-primary" />
       <span
         className={["text-[12px] font-medium", textClassName ?? ""].join(" ")}
       >

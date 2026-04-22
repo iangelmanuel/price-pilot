@@ -19,6 +19,7 @@ type StoredV2 = {
   isTrmChanging: boolean
   shippingMode: ShippingMode
   productCategory: ProductCategory
+  aiProductCode: string
   lastProductCode: number
   autoAdvanceCode: boolean
 }
@@ -88,7 +89,9 @@ export type ProductContextType = {
   clearData: () => void
 }
 
-export const ProductContext = createContext<ProductContextType | undefined>(undefined)
+export const ProductContext = createContext<ProductContextType | undefined>(
+  undefined
+)
 
 export function ProductProvider({ children }: { children: ReactNode }) {
   // Product source
@@ -116,7 +119,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
   // Mode + category + code
   const [shippingMode, setShippingModeState] = useState<ShippingMode>("amazon")
-  const [productCategory, setProductCategoryState] = useState<ProductCategory>("general")
+  const [productCategory, setProductCategoryState] =
+    useState<ProductCategory>("general")
   const [lastProductCode, setLastProductCode] = useState(0)
   const [autoAdvanceCode, setAutoAdvanceCode] = useState(true)
 
@@ -132,15 +136,24 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       if (rawV2) {
         const p = JSON.parse(rawV2) as Partial<StoredV2>
         if (typeof p.trm === "number") setTrm(p.trm)
-        if (typeof p.companyCommission === "number") setCompanyCommission(p.companyCommission)
+        if (typeof p.companyCommission === "number")
+          setCompanyCommission(p.companyCommission)
         if (typeof p.deliveryCost === "number") setDeliveryCost(p.deliveryCost)
         if (typeof p.costByPound === "number") setCostByPound(p.costByPound)
-        if (typeof p.porcentageIncrease === "number") setPorcentageIncrease(p.porcentageIncrease)
-        if (typeof p.isTrmChanging === "boolean") setIsTrmChanging(p.isTrmChanging)
-        if (p.shippingMode === "amazon" || p.shippingMode === "casillero") setShippingModeState(p.shippingMode)
-        if (p.productCategory === "general" || p.productCategory === "ropa") setProductCategoryState(p.productCategory)
-        if (typeof p.lastProductCode === "number") setLastProductCode(p.lastProductCode)
-        if (typeof p.autoAdvanceCode === "boolean") setAutoAdvanceCode(p.autoAdvanceCode)
+        if (typeof p.porcentageIncrease === "number")
+          setPorcentageIncrease(p.porcentageIncrease)
+        if (typeof p.isTrmChanging === "boolean")
+          setIsTrmChanging(p.isTrmChanging)
+        if (p.shippingMode === "amazon" || p.shippingMode === "casillero")
+          setShippingModeState(p.shippingMode)
+        if (p.productCategory === "general" || p.productCategory === "ropa")
+          setProductCategoryState(p.productCategory)
+        if (typeof p.aiProductCode === "string")
+          setAiProductCode(p.aiProductCode)
+        if (typeof p.lastProductCode === "number")
+          setLastProductCode(p.lastProductCode)
+        if (typeof p.autoAdvanceCode === "boolean")
+          setAutoAdvanceCode(p.autoAdvanceCode)
         setHydrated(true)
         return
       }
@@ -149,11 +162,14 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       if (rawV1) {
         const p = JSON.parse(rawV1) as Partial<StoredV1>
         if (typeof p.trm === "number") setTrm(p.trm)
-        if (typeof p.companyCommission === "number") setCompanyCommission(p.companyCommission)
+        if (typeof p.companyCommission === "number")
+          setCompanyCommission(p.companyCommission)
         if (typeof p.deliveryCost === "number") setDeliveryCost(p.deliveryCost)
         if (typeof p.costByPound === "number") setCostByPound(p.costByPound)
-        if (typeof p.porcentageIncrease === "number") setPorcentageIncrease(p.porcentageIncrease)
-        if (typeof p.isTrmChanging === "boolean") setIsTrmChanging(p.isTrmChanging)
+        if (typeof p.porcentageIncrease === "number")
+          setPorcentageIncrease(p.porcentageIncrease)
+        if (typeof p.isTrmChanging === "boolean")
+          setIsTrmChanging(p.isTrmChanging)
       }
     } catch {
       // ignore
@@ -166,15 +182,36 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!hydrated) return
     const data: StoredV2 = {
-      trm, companyCommission, deliveryCost, costByPound, porcentageIncrease,
-      isTrmChanging, shippingMode, productCategory, lastProductCode, autoAdvanceCode,
+      trm,
+      companyCommission,
+      deliveryCost,
+      costByPound,
+      porcentageIncrease,
+      isTrmChanging,
+      shippingMode,
+      productCategory,
+      aiProductCode,
+      lastProductCode,
+      autoAdvanceCode
     }
     try {
       localStorage.setItem(STORAGE_KEY_V2, JSON.stringify(data))
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   }, [
-    trm, companyCommission, deliveryCost, costByPound, porcentageIncrease,
-    isTrmChanging, shippingMode, productCategory, lastProductCode, autoAdvanceCode, hydrated,
+    trm,
+    companyCommission,
+    deliveryCost,
+    costByPound,
+    porcentageIncrease,
+    isTrmChanging,
+    shippingMode,
+    productCategory,
+    aiProductCode,
+    lastProductCode,
+    autoAdvanceCode,
+    hydrated
   ])
 
   /* ── TRM fetch ──────────────────────────────────────────────── */
@@ -184,10 +221,14 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     const fetch_ = async () => {
       setLoading(true)
       try {
-        const res = await fetch("https://hexarate.paikama.co/api/rates/USD/COP/latest")
+        const res = await fetch(
+          "https://hexarate.paikama.co/api/rates/USD/COP/latest"
+        )
         const data: TrmResponse = await res.json()
         setTrm(Math.ceil(data.data.mid))
-      } catch { /* keep existing */ } finally {
+      } catch {
+        /* keep existing */
+      } finally {
         setLoading(false)
       }
     }
@@ -225,7 +266,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       title: aiTitle,
       description: aiDescription,
       shippingMode,
-      productCategory,
+      productCategory
     })
 
     if (!result.ok) {
@@ -237,7 +278,9 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       let accumulated = ""
       for await (const chunk of readStreamableValue(result.stream)) {
         if (typeof chunk === "string" && chunk) {
-          accumulated = chunk.startsWith(accumulated) ? chunk : accumulated + chunk
+          accumulated = chunk.startsWith(accumulated)
+            ? chunk
+            : accumulated + chunk
           setAiGeneratedMessage(accumulated)
         }
       }
@@ -257,7 +300,6 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     setPreviousBusinessPrice(0)
     setCouponCode("")
     setPounds(0)
-    setAiProductCode("")
     setAiCurrentPrice(0)
     setAiPreviousPrice(0)
     setAiTitle("")
@@ -268,21 +310,57 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   }
 
   const value: ProductContextType = {
-    productLink, couponCode, pounds, businessPrice, previousBusinessPrice,
-    setProductLink, setCouponCode, setPounds, setBusinessPrice, setPreviousBusinessPrice,
+    productLink,
+    couponCode,
+    pounds,
+    businessPrice,
+    previousBusinessPrice,
+    setProductLink,
+    setCouponCode,
+    setPounds,
+    setBusinessPrice,
+    setPreviousBusinessPrice,
 
-    aiProductCode, aiCurrentPrice, aiPreviousPrice, aiTitle,
-    aiDescription, aiGeneratedMessage, isAiGenerating,
-    setAiProductCode, setAiCurrentPrice, setAiPreviousPrice,
-    setAiTitle, setAiDescription, generateAiMessage, clearAiMessage,
+    aiProductCode,
+    aiCurrentPrice,
+    aiPreviousPrice,
+    aiTitle,
+    aiDescription,
+    aiGeneratedMessage,
+    isAiGenerating,
+    setAiProductCode,
+    setAiCurrentPrice,
+    setAiPreviousPrice,
+    setAiTitle,
+    setAiDescription,
+    generateAiMessage,
+    clearAiMessage,
 
-    trm, companyCommission, deliveryCost, costByPound, porcentageIncrease,
-    setTrm, setCompanyCommission, setDeliveryCost, setCostByPound, setPorcentageIncrease,
+    trm,
+    companyCommission,
+    deliveryCost,
+    costByPound,
+    porcentageIncrease,
+    setTrm,
+    setCompanyCommission,
+    setDeliveryCost,
+    setCostByPound,
+    setPorcentageIncrease,
 
-    shippingMode, productCategory, lastProductCode, autoAdvanceCode,
-    setShippingMode, setProductCategory, advanceProductCode, setAutoAdvanceCode,
+    shippingMode,
+    productCategory,
+    lastProductCode,
+    autoAdvanceCode,
+    setShippingMode,
+    setProductCategory,
+    advanceProductCode,
+    setAutoAdvanceCode,
 
-    loading, isTrmChanging, setLoading, setIsTrmChanging, clearData,
+    loading,
+    isTrmChanging,
+    setLoading,
+    setIsTrmChanging,
+    clearData
   }
 
   return <ProductContext value={value}>{children}</ProductContext>

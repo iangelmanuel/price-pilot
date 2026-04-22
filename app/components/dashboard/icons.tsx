@@ -25,7 +25,8 @@ import {
   SquarePlus,
   Tag,
   Watch,
-  RefreshCw
+  RefreshCw,
+  Zap
 } from "lucide-react"
 
 type IconProps = {
@@ -269,6 +270,15 @@ export function CheckDoubleIcon({ className }: IconProps) {
 export function CircleCheckIcon({ className }: IconProps) {
   return (
     <CircleCheck
+      className={className}
+      strokeWidth={1.8}
+    />
+  )
+}
+
+export function ZapIcon({ className }: IconProps) {
+  return (
+    <Zap
       className={className}
       strokeWidth={1.8}
     />

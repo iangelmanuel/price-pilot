@@ -13,16 +13,16 @@
   --popover-foreground: #09090b;
   --primary: #8a6fc2;
   --primary-foreground: #ffffff;
-  --secondary: #f4f4f5;
+  --secondary: #eff1f6;
   --secondary-foreground: #18181b;
-  --muted: #f4f4f5;
+  --muted: #eff1f6;
   --muted-foreground: #71717a;
-  --accent: #f4f4f5;
+  --accent: #e8ecf6;
   --accent-foreground: #18181b;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #d4d4d8;
-  --input: #f4f4f5;
+  --border: #b8bfd0;
+  --input: #f7f8fc;
   --ring: #8a6fc2;
   --radius: 0.75rem;
 }
@@ -31,22 +31,22 @@
 .dark {
   --background: #09090b;
   --foreground: #fafafa;
-  --card: #111113;
+  --card: #101116;
   --card-foreground: #fafafa;
-  --popover: #111113;
+  --popover: #101116;
   --popover-foreground: #fafafa;
   --primary: #a78bfa;
   --primary-foreground: #09090b;
-  --secondary: #27272a;
+  --secondary: #1f222d;
   --secondary-foreground: #e4e4e7;
-  --muted: #18181b;
-  --muted-foreground: #71717a;
-  --accent: #27272a;
+  --muted: #171922;
+  --muted-foreground: #939cb1;
+  --accent: #232734;
   --accent-foreground: #fafafa;
   --destructive: #f87171;
   --destructive-foreground: #09090b;
-  --border: #3f3f46;
-  --input: #27272a;
+  --border: #343949;
+  --input: #181c28;
   --ring: #a78bfa;
 }
 
@@ -93,7 +93,9 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Inter, "Segoe UI", sans-serif;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 * {
@@ -117,18 +119,36 @@ body {
 
 /* ── Animation keyframes ──────────────────────────────────────── */
 @keyframes accordion-down {
-  from { height: 0; }
-  to   { height: var(--radix-accordion-content-height); }
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
 }
 @keyframes accordion-up {
-  from { height: var(--radix-accordion-content-height); }
-  to   { height: 0; }
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes slide-in-from-bottom {
-  from { transform: translateY(8px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

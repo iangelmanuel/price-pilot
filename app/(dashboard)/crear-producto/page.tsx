@@ -1,4 +1,5 @@
 import { CotizadorLayout } from "@/app/components/cotizador/CotizadorLayout"
+import { ShortcutStrip } from "@/app/components/cotizador/ShortcutStrip"
 
 export default function CrearProductoPage() {
   return (
@@ -13,6 +14,8 @@ export default function CrearProductoPage() {
         <p className="mt-2 text-[14px] text-muted-foreground sm:text-[15px]">
           Calcula el precio final en COP y genera el mensaje para WhatsApp.
         </p>
+
+        <ShortcutStrip />
       </header>
 
       <CotizadorLayout />

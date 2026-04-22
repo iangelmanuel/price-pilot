@@ -12,12 +12,26 @@ import { WhatsAppPreview } from "./WhatsAppPreview"
 import { CopyButtons } from "./CopyButtons"
 
 import { cn } from "@/app/lib/utils"
+import { useProduct } from "@/app/hook/useProduct"
+import { useCopyPayloadActions } from "@/app/hook/useCopyPayloadActions"
+import { useKeyboardShortcuts } from "@/app/hook/useKeyboardShortcuts"
 
 type MobileTab = "cotizar" | "preview"
 
 export function CotizadorLayout() {
   const usdPriceRef = useRef<HTMLInputElement>(null)
   const [mobileTab, setMobileTab] = useState<MobileTab>("cotizar")
+  const { clearData } = useProduct()
+  const { copyGemini, copyAdmin } = useCopyPayloadActions()
+
+  useKeyboardShortcuts({
+    onFocusUsdPrice: () => usdPriceRef.current?.focus(),
+    onCopyGemini: copyGemini,
+    onCopyAdmin: copyAdmin,
+    onClearData: clearData,
+    onSwitchToCotizarTab: () => setMobileTab("cotizar"),
+    onSwitchToPreviewTab: () => setMobileTab("preview")
+  })
 
   const LeftPanel = (
     <div className="space-y-4">
@@ -41,17 +55,13 @@ export function CotizadorLayout() {
     <>
       {/* ── Desktop split view ── */}
       <div className="hidden lg:flex lg:items-start lg:gap-5">
-        <div className="min-w-0 flex-1 pb-8">
-          {LeftPanel}
-        </div>
+        <div className="min-w-0 flex-1 pb-8">{LeftPanel}</div>
 
         <div
           className="w-[400px] shrink-0 lg:sticky lg:top-[88px] lg:max-h-[calc(100vh-88px)] lg:overflow-y-auto xl:w-[440px]"
           style={{ scrollbarWidth: "none" }}
         >
-          <div className="space-y-4 pb-8">
-            {RightPanel}
-          </div>
+          <div className="space-y-4 pb-8">{RightPanel}</div>
         </div>
       </div>
 

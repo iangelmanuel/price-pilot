@@ -2,6 +2,7 @@
 
 import { Trash2, Sun, Moon } from "lucide-react"
 import { Button } from "@/app/components/ui/button"
+import { Shortcut } from "@/app/components/ui/shortcut"
 import { useProduct } from "@/app/hook/useProduct"
 import { useTheme } from "@/app/hook/useTheme"
 import { usePathname } from "next/navigation"
@@ -14,7 +15,7 @@ export function Topbar() {
   const isCrearProducto = pathname === "/crear-producto"
 
   return (
-    <header className="sticky top-0 z-20 border-b border-border bg-background/90 px-4 py-3 backdrop-blur sm:px-6 lg:h-[88px] lg:px-7 lg:py-0">
+    <header className="sticky top-0 z-20 border-b border-border bg-background/90 px-4 py-3 backdrop-blur sm:px-6 lg:h-22 lg:px-7 lg:py-0">
       <div className="flex items-center gap-3 lg:h-full">
         <div className="hidden rounded-xl border border-border bg-muted px-3 py-1.5 sm:block">
           <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
@@ -22,15 +23,24 @@ export function Topbar() {
           </p>
         </div>
 
+        <Navigation />
+
         <div className="ml-auto flex items-center gap-3 sm:gap-4">
           {isCrearProducto && (
             <Button
               variant="secondary"
               onClick={clearData}
               className="border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/20"
+              title="Ctrl+X"
             >
-              <Trash2 className="size-4" />
-              Limpiar datos
+              <span className="inline-flex items-center gap-2">
+                <Trash2 className="size-4" />
+                Limpiar datos
+              </span>
+              <Shortcut
+                keys={["Ctrl", "X"]}
+                className="ml-1 hidden lg:inline-flex"
+              />
             </Button>
           )}
 
@@ -55,7 +65,7 @@ export function Topbar() {
                 Administrador
               </p>
             </div>
-            <div className="size-9 rounded-full bg-[radial-gradient(circle_at_30%_30%,#f6c7a8_0%,#e9a47f_60%,#d98763_100%)] sm:size-10" />
+            <div className="size-9 rounded-full bg-linear-to-br from-primary/45 via-primary/60 to-primary sm:size-10" />
           </div>
         </div>
       </div>

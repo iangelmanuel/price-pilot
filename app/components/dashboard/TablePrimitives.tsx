@@ -27,7 +27,7 @@ export function ActionIconButton({ label, children }: ActionIconButtonProps) {
     <IconButton
       size="sm"
       aria-label={label}
-      className="text-neutral-500"
+      className="text-muted-foreground"
     >
       {children}
     </IconButton>
@@ -47,11 +47,11 @@ export function PaginationLink({
       className={[
         "grid h-8 w-8 place-items-center rounded-lg border text-[13px] font-medium",
         active
-          ? "border-primary-500 bg-primary-100 font-semibold text-primary-900"
-          : "border-neutral-200 text-neutral-700",
+          ? "border-primary/50 bg-primary/15 font-semibold text-primary"
+          : "border-input bg-card text-muted-foreground",
         disabled
           ? "pointer-events-none opacity-50"
-          : "hover:border-primary-300 hover:bg-primary-50"
+          : "hover:border-primary/35 hover:bg-accent hover:text-foreground"
       ].join(" ")}
     >
       {children}
@@ -63,10 +63,10 @@ export function ProductTypeBadge({ type }: ProductTypeBadgeProps) {
   return (
     <span
       className={[
-        "inline-flex rounded-full px-2 py-1 text-[12px] font-semibold",
+        "inline-flex rounded-full border px-2 py-1 text-[12px] font-semibold",
         type === "Physical"
-          ? "bg-primary-100 text-primary-800"
-          : "bg-neutral-200 text-neutral-700"
+          ? "border-primary/45 bg-primary/15 text-primary"
+          : "border-input bg-muted text-muted-foreground"
       ].join(" ")}
     >
       {type === "Physical" ? "Físico" : "Digital"}
@@ -78,11 +78,11 @@ export function ProductStatusBadge({ status }: ProductStatusBadgeProps) {
   const published = status === "Published"
 
   return (
-    <span className="inline-flex items-center gap-2 text-[14px] text-neutral-900">
+    <span className="inline-flex items-center gap-2 text-[14px] text-foreground">
       <span
         className={[
           "h-1.5 w-1.5 rounded-full",
-          published ? "bg-primary-500" : "bg-neutral-400"
+          published ? "bg-primary" : "bg-muted-foreground"
         ].join(" ")}
       />
       {published ? "Publicado" : "Pendiente"}
