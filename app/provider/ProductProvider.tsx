@@ -251,9 +251,9 @@ export function ProductProvider({ children }: { children: ReactNode }) {
   const advanceProductCode = () => {
     const current = parseInt(aiProductCode, 10)
     const base = isNaN(current) ? lastProductCode : current
-    const next = base >= 999 ? 1 : base + 1
+    const next = base >= 9999 ? 1 : base + 1
     setLastProductCode(next)
-    setAiProductCode(String(next).padStart(3, "0"))
+    setAiProductCode(String(next).padStart(4, "0"))
   }
 
   /* ── AI generation ──────────────────────────────────────────── */

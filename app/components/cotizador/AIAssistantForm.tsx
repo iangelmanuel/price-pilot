@@ -16,16 +16,31 @@ function roundCop(value: number) {
 
 export function AIAssistantForm() {
   const {
-    aiProductCode, setAiProductCode,
-    aiTitle, setAiTitle,
-    aiCurrentPrice, setAiCurrentPrice,
-    aiPreviousPrice, setAiPreviousPrice,
-    aiDescription, setAiDescription,
-    isAiGenerating, generateAiMessage, clearAiMessage,
-    lastProductCode, advanceProductCode,
-    autoAdvanceCode, setAutoAdvanceCode,
-    businessPrice, previousBusinessPrice,
-    trm, companyCommission, porcentageIncrease, deliveryCost, costByPound, pounds,
+    aiProductCode,
+    setAiProductCode,
+    aiTitle,
+    setAiTitle,
+    aiCurrentPrice,
+    setAiCurrentPrice,
+    aiPreviousPrice,
+    setAiPreviousPrice,
+    aiDescription,
+    setAiDescription,
+    isAiGenerating,
+    generateAiMessage,
+    clearAiMessage,
+    lastProductCode,
+    advanceProductCode,
+    autoAdvanceCode,
+    setAutoAdvanceCode,
+    businessPrice,
+    previousBusinessPrice,
+    trm,
+    companyCommission,
+    porcentageIncrease,
+    deliveryCost,
+    costByPound,
+    pounds
   } = useProduct()
 
   const [error, setError] = useState("")
@@ -35,22 +50,40 @@ export function AIAssistantForm() {
   /* Auto-populate COP prices from USD using company formula */
   const calcCop = (usd: number) =>
     base > 0 && usd > 0
-      ? roundCop(usd * base * porcentageIncrease + deliveryCost + costByPound * pounds)
+      ? roundCop(
+          usd * base * porcentageIncrease + deliveryCost + costByPound * pounds
+        )
       : 0
 
   useEffect(() => {
     const suggested = calcCop(businessPrice)
     if (suggested > 0) setAiCurrentPrice(suggested)
     else if (businessPrice === 0) setAiCurrentPrice(0)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [businessPrice, trm, companyCommission, porcentageIncrease, deliveryCost, costByPound, pounds])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    businessPrice,
+    trm,
+    companyCommission,
+    porcentageIncrease,
+    deliveryCost,
+    costByPound,
+    pounds
+  ])
 
   useEffect(() => {
     const suggested = calcCop(previousBusinessPrice)
     if (suggested > 0) setAiPreviousPrice(suggested)
     else if (previousBusinessPrice === 0) setAiPreviousPrice(0)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [previousBusinessPrice, trm, companyCommission, porcentageIncrease, deliveryCost, costByPound, pounds])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    previousBusinessPrice,
+    trm,
+    companyCommission,
+    porcentageIncrease,
+    deliveryCost,
+    costByPound,
+    pounds
+  ])
 
   const canGenerate =
     aiProductCode.trim().length > 0 &&
@@ -66,8 +99,8 @@ export function AIAssistantForm() {
 
   const decrementCode = () => {
     const current = parseInt(aiProductCode, 10)
-    const prev = isNaN(current) || current <= 1 ? 999 : current - 1
-    setAiProductCode(String(prev).padStart(3, "0"))
+    const prev = isNaN(current) || current <= 1 ? 9999 : current - 1
+    setAiProductCode(String(prev).padStart(4, "0"))
   }
 
   return (
@@ -77,7 +110,9 @@ export function AIAssistantForm() {
           Asistente IA · WhatsApp
         </p>
         <div className="flex items-center gap-2">
-          <span className="text-[12px] text-muted-foreground">Auto-avanzar código</span>
+          <span className="text-[12px] text-muted-foreground">
+            Auto-avanzar código
+          </span>
           <Switch
             checked={autoAdvanceCode}
             onCheckedChange={setAutoAdvanceCode}
@@ -138,7 +173,9 @@ export function AIAssistantForm() {
           <div>
             <Label htmlFor="ai-current-price">
               Precio actual
-              <span className="ml-1 font-normal text-muted-foreground">(COP)</span>
+              <span className="ml-1 font-normal text-muted-foreground">
+                (COP)
+              </span>
             </Label>
             <Input
               id="ai-current-price"
@@ -146,7 +183,9 @@ export function AIAssistantForm() {
               step="any"
               inputMode="decimal"
               value={aiCurrentPrice || ""}
-              onChange={(e) => setAiCurrentPrice(parseDecimalInput(e.target.value))}
+              onChange={(e) =>
+                setAiCurrentPrice(parseDecimalInput(e.target.value))
+              }
               placeholder="65000"
               className="mt-1.5"
             />
@@ -154,7 +193,9 @@ export function AIAssistantForm() {
           <div>
             <Label htmlFor="ai-prev-price">
               Precio anterior
-              <span className="ml-1 font-normal text-muted-foreground">(COP)</span>
+              <span className="ml-1 font-normal text-muted-foreground">
+                (COP)
+              </span>
             </Label>
             <Input
               id="ai-prev-price"
@@ -162,7 +203,9 @@ export function AIAssistantForm() {
               step="any"
               inputMode="decimal"
               value={aiPreviousPrice || ""}
-              onChange={(e) => setAiPreviousPrice(parseDecimalInput(e.target.value))}
+              onChange={(e) =>
+                setAiPreviousPrice(parseDecimalInput(e.target.value))
+              }
               placeholder="110000"
               className="mt-1.5"
             />
@@ -210,7 +253,11 @@ export function AIAssistantForm() {
             <Sparkles className="size-4" />
             {isAiGenerating ? "Generando..." : "Generar mensaje con IA"}
           </Button>
-          <Button variant="secondary" onClick={clearAiMessage} className="sm:w-auto">
+          <Button
+            variant="secondary"
+            onClick={clearAiMessage}
+            className="sm:w-auto"
+          >
             <RotateCcw className="size-4" />
             Limpiar
           </Button>
