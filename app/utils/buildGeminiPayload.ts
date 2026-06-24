@@ -88,6 +88,15 @@ export function buildGeminiPayload(p: Params): string {
   lines.push(
     "Tono: comercial, claro, persuasivo. Solo español salvo marcas/siglas técnicas."
   )
+  lines.push(
+    "Unidades: convierte SIEMPRE cualquier medida que no se use en Colombia al sistema métrico colombiano. Pulgadas → cm, pies → m o cm, libras/onzas → kg o g, galones → L, °F → °C. Muestra el valor convertido (puedes dejar el original entre paréntesis si aporta claridad)."
+  )
+  lines.push(
+    'Nunca uses la palabra "Pack". Si el producto menciona "pack" o paquete de varias unidades, indícalo en el título como "(Paquete de #)" reemplazando # por la cantidad real de unidades.'
+  )
+  lines.push(
+    "Género: si el producto es un reloj, zapatos/calzado o ropa, el título SIEMPRE debe especificar el género al que va dirigido (Hombre, Mujer, Niño, Niña o Unisex). Si no es evidente, dedúcelo del producto."
+  )
   lines.push("")
   lines.push("Formato exacto (respeta líneas en blanco entre bloques):")
   lines.push("")
