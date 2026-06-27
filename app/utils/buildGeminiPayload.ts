@@ -105,8 +105,7 @@ export function buildGeminiPayload(p: Params): string {
     `{emoji que vaya acorde al título} *{título traducido, máx 55 chars}*`
   )
 
-  // Quitar emoji y precio prime
-  lines.push(`💰 *Precio Prime*: ${currentFmt}`)
+  lines.push(`✔️ *Precio hoy*: ${currentFmt}`)
   if (hasPrev)
     lines.push(`❌ *Antes*: $${p.aiPreviousPrice.toLocaleString("es-CO")}`)
   lines.push("")
@@ -124,9 +123,6 @@ export function buildGeminiPayload(p: Params): string {
   lines.push("")
   lines.push(`💌 Aprovecha esta oferta aquí 👉 wa.link/znboo2`)
   lines.push(`🚚 *Entrega: ${delivery}*`)
-
-  // Quitar
-  lines.push(`⚡ *Oferta Flash. Solicítalo antes que se agote.*`)
 
   return lines.join("\n")
 }
